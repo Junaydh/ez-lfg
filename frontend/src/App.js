@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { handleClick } from './components/Test.js'
+import { handleClick } from './hooks/test'
 
 function App() {
   return (
