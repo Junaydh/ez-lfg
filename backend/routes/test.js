@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const test = require('../db/queries/test.sql')
+const test = require('../db/queries/test')
 
 router.get('/', (req, res) => {
- test.showAll
+ test.showAll()
   .then(rows => {
+    console.log(rows);
     res.json(rows);
   })
   .catch (err => {

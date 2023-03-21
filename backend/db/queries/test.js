@@ -2,7 +2,7 @@ const db = require('../connection');
 
 const showAll  = () => {
 
-  const queryString = `SELECT * FROM sessions`;
+  const queryString = `SELECT * FROM users`;
 
   return db
   .query(queryString)
@@ -15,4 +15,4 @@ const showAll  = () => {
 }
 
 
-module.exports = { showAll }
+module.exports = { showAll };
