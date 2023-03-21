@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS sessions CASCADE;
+CREATE TABLE sessions (
+    id SERIAL PRIMARY KEY,
+    creator_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    game_id INTEGER NOT NULL REFERENCES games(id) ON DELETE CASCADE,
+    region VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    max_players INTEGER NOT NULL,
+    current_players INTEGER NOT NULL DEFAULT 1,
+    mic_required BOOLEAN NOT NULL DEFAULT FALSE,
+    competitive BOOLEAN NOT NULL DEFAULT FALSE,
+    discord_link VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
