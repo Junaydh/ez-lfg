@@ -3,5 +3,5 @@ CREATE TABLE games (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     game_logo VARCHAR(255) NOT NULL,
-    game_cover VARCHAR(255) NOT NULL,
+    game_cover VARCHAR(255) NOT NULL
 );

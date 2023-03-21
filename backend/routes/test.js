@@ -1,11 +1,15 @@
-// routes/test.js
-
 const express = require('express');
 const router = express.Router();
+const test = require('../db/queries/test.sql')
 
 router.get('/', (req, res) => {
-  const data = { message: 'This is a test message' };
-  res.json(data);
-});
+ test.showAll
+  .then(rows => {
+    res.json(rows);
+  })
+  .catch (err => {
+    console.error(err.message);
+  });
+})
 
 module.exports = router;
