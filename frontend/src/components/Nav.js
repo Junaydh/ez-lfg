@@ -1,9 +1,9 @@
 import React from 'react';
-import './Nav.scss'
+import './Nav.scss';
 
 export default function Navbar() {
   return (
-    <nav>
+    <nav className='navigation'>
       <ul>
         <li><a href="#">Home</a></li>
         <li><a href="#">About</a></li>
