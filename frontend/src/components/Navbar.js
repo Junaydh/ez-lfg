@@ -2,8 +2,11 @@ import React from 'react';
 import './Navbar.scss';
 
 export default function Navbar() {
+  const publicUrl = process.env.PUBLIC_URL;
+
   return (
     <nav className='navigation'>
+      <img src={`${publicUrl}/EZLFG.png`} alt='logo' className='logo' />
       <ul>
         <li><a href="#">Home</a></li>
         <li><a href="#">About</a></li>
@@ -12,5 +15,3 @@ export default function Navbar() {
     </nav>
   );
 }
-
-
