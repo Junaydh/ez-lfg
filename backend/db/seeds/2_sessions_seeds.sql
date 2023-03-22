@@ -1,6 +1,6 @@
 DELETE FROM sessions;
 
-INSERT INTO sessions (creator_id, game_id, region, title, description, max_players, current_players, mic_required, competitive, discord_link)
+INSERT INTO sessions (creator_id, game_id, region, title, description, max_players, current_players, mic_required, competitive, discord_link, platform)
 VALUES (1, 1, 'NA', 'Valorant Ranked', 'Looking for players to grind Valorant Ranked with', 5, 3, TRUE, TRUE, 'https://discord.gg/valorantranked', 'PC'),
 (2, 2, 'EU', 'Fortnite Duos', 'Need a duo partner for Fortnite Arena', 2, 1, FALSE, FALSE, 'https://discord.gg/fortnitearena', 'XBox'),
 (3, 3, 'NA', 'League of Legends Flex', 'Creating a team for LoL Flex', 5, 2, TRUE, TRUE, 'https://discord.gg/lolflex', 'PC'),
