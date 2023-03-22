@@ -1,4 +1,5 @@
 import React from 'react';
+import './Game.scss';
 
 export default Game = (props) => {
   <div className="game">
