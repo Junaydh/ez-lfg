@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { handleClick } from './hooks/test'
-import Navbar from './components/Nav';
+import Navbar from './components/Navbar';
 
 function App() {
   return (

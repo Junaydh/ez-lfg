@@ -1,0 +1,18 @@
+.navigation {
+  display: flex;
+  background-color: #0080FF;
+
+  ul {
+    display: flex;
+  }
+
+  ul > li {
+    justify-content: space-between;
+    width: 100px;
+  }
+
+  ul > li > a {
+    color: blue;
+    text-decoration: none;
+  }
+}
