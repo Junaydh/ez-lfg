@@ -11,9 +11,8 @@ function App() {
       <button onClick={handleClick}>Test Request</button>
       <h1>EZLFG</h1>
       <div>
-        <h1>List of games:</h1>
         <GamesList />
-    </div>
+      </div>
     </main>
   );
 }
