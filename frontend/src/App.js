@@ -1,17 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
-import { handleClick } from './hooks/test'
+import './App.scss';
 import Navbar from './components/Navbar';
+import { useSessions } from './hooks/useSessions';
+import SessionList from './components/SessionList';
 
 function App() {
+  const sessions = useSessions();
+
   return (
     <main>
       <Navbar />
-      <button onClick={handleClick}>Test Request</button>
-      <h1>EZLFG</h1>
+      <SessionList sessions={sessions} />
     </main>
   );
 }
-
 
 export default App;
