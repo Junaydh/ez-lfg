@@ -7,6 +7,7 @@ const findGames = () => {
   return db
     .query(queryString)
     .then(data => {
+      
       return data.rows;
     })
     .catch(err => {
@@ -14,4 +15,4 @@ const findGames = () => {
     });
 }
 
-module.exports = { findGames }
+module.exports = { findGames };

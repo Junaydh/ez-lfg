@@ -3,7 +3,7 @@ const router = express.Router();
 const gamesSelector = require('../db/queries/gamesSelector');
 
 
-/* GET users listing. */
+/* GET gamess listing. */
 router.get('/', (req, res) => {
   gamesSelector.findGames()
     .then(rows => {

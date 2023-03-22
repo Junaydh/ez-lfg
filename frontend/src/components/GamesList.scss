@@ -1,0 +1,27 @@
+.games-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+
+  &__search {
+    padding: 8px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    width: 100%;
+
+    &:focus {
+      outline: none;
+      border-color: #0077ff;
+    }
+  }
+
+  &__games {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

@@ -4,13 +4,10 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require("cors");
-const db = require("./db");
-
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const testRouter = require('./routes/test');
 const gamesRouter = require('./routes/gamesApi');
-var app = express();   
+
+const app = express();   
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,9 +20,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/test', testRouter);
 app.use('/games', gamesRouter);
 
 // catch 404 and forward to error handler
