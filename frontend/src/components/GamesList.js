@@ -5,7 +5,8 @@ import Game from './Game';
 
 const GamesList = () => {
   const [games, setGames] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchText, setSearchText] = useState('');
+  const [selectedGameId, setSelectedGameId] = useState(null);
 
   useEffect(() => {
     axios.get('http://localhost:3001/games')
@@ -15,20 +16,32 @@ const GamesList = () => {
       .catch(error => console.log('Error fetching games:', error));
   }, []);
 
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-  }
+  const handleGameClick = (gameId) => {
+    setSelectedGameId(prevSelectedGameId => prevSelectedGameId === gameId ? null : gameId);
+  };
 
-  const filteredGames = games.filter(game => {
-    return game.name.toLowerCase().includes(searchQuery.toLowerCase());
-  });
+  const filteredGames = games.filter(game => game.name.toLowerCase().includes(searchText.toLowerCase()));
 
   return (
     <div className="games-list-container">
-      <input type="text" value={searchQuery} onChange={handleSearchChange} placeholder="Search games..." />
-      {filteredGames.map(game => (
-        <Game key={game.id} logo={game.game_logo} name={game.name} />
-      ))}
+      <input
+        type="text"
+        placeholder="Search for a game"
+        value={searchText}
+        onChange={(e) => setSearchText(e.target.value)}
+        className="search-bar"
+      />
+      <div className="games-container">
+        {filteredGames.map(game => (
+          <Game
+            key={game.id}
+            logo={game.game_logo}
+            name={game.name}
+            selected={game.id === selectedGameId}
+            onClick={() => handleGameClick(game.id)}
+          />
+        ))}
+      </div>
     </div>
   );
 };
