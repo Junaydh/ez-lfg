@@ -1,0 +1,18 @@
+.session-card {
+  width: 40%;
+  border: solid black;
+  margin: 1em;
+  padding: 1.5em;
+  border-radius: 1em;
+
+  .session-prefs-description {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .preferences {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
