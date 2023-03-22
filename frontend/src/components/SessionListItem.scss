@@ -2,8 +2,13 @@
   width: 40%;
   border: solid black;
   margin: 1em;
-  padding: 1.5em;
+  padding: 1.5em 3em;
   border-radius: 1em;
+  background-color: white;
+
+  .fa-discord {
+    color: #7289da;
+  }
 
   .session-prefs-description {
     display: flex;

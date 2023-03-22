@@ -17,7 +17,7 @@ function SessionListItem({session}) {
     <div key={session.id} className="session-card">
       <h2>{session.title}</h2>
       <h3>Host: {session.creator.username}</h3>
-      <h5>Discord: {session.creator.discord_tag}</h5>
+      <h5><i className="fab fa-discord"></i> {session.creator.discord_tag}</h5>
       <div className='session-prefs-description'>  
         <div className='preferences'>
           <span>Players: 2/{session.max_players}</span>
