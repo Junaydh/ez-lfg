@@ -12,5 +12,6 @@ CREATE TABLE sessions (
     competitive BOOLEAN NOT NULL DEFAULT FALSE,
     discord_link VARCHAR(255) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    platform VARCHAR(255) NOT NULL
 );
