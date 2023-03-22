@@ -1,10 +1,19 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const gamesSelector = require('../db/queries/gamesSelector');
 
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/', (req, res) => {
+  gamesSelector.findAll()
+    .then(rows => {
+      res.json(rows);
+    })
+    .catch(err => {
+      console.error(err.message);
+    });
 });
+
+
 
 module.exports = router;
