@@ -8,7 +8,6 @@ const indexRouter = require('./routes/index');
 const gamesRouter = require('./routes/gamesApi');
 
 const app = express();   
-var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const sessionsRouter = require('./routes/sessionsApi');
 
