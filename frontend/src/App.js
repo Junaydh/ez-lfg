@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 import { handleClick } from './hooks/test'
 import Navbar from './components/Navbar';
 
