@@ -5,7 +5,7 @@ const gamesSelector = require('../db/queries/gamesSelector');
 
 /* GET users listing. */
 router.get('/', (req, res) => {
-  gamesSelector.findAll()
+  gamesSelector.findGames()
     .then(rows => {
       res.json(rows);
     })
@@ -13,7 +13,5 @@ router.get('/', (req, res) => {
       console.error(err.message);
     });
 });
-
-
 
 module.exports = router;

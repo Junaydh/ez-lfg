@@ -1,6 +1,6 @@
 const db = require('../connection');
 
-const findAll = () => {
+const findGames = () => {
 
   const queryString = `SELECT * FROM games`;
 
@@ -14,4 +14,4 @@ const findAll = () => {
     });
 }
 
-module.exports = { findAll }
+module.exports = { findGames }
