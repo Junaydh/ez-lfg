@@ -11,7 +11,7 @@
     color: #7289da;
   }
 
-  .session-prefs-description {
+  .details {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -19,6 +19,17 @@
     .preferences {
       display: flex;
       flex-direction: column;
+    }
+
+    .players {
+      background-color: gray;
+      padding: 1em;
+      border: solid black;
+      border-radius: 1em;
+    }
+
+    ul {
+      list-style: none;
     }
   }
 }
