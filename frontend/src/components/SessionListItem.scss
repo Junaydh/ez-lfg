@@ -4,32 +4,50 @@
   margin: 1em;
   padding: 1.5em 3em;
   border-radius: 1em;
-  background-color: #bebebe
-  ;
+  background-color: #bebebe;
+
+  h2 {
+    width: 40%;
+  }
 
   .fa-discord {
     color: #7289da;
   }
 
+  .host-description {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .details {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
+    width: 70%;
 
     .preferences {
       display: flex;
       flex-direction: column;
     }
 
-    .players {
-      background-color: gray;
-      padding: 1em;
-      border: solid black;
-      border-radius: 1em;
-    }
+    .right-details {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
 
-    ul {
-      list-style: none;
+      .players {
+        background-color: gray;
+        padding: 1em;
+        border: solid black;
+        border-radius: 1em;
+      }
+
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      
     }
   }
 }

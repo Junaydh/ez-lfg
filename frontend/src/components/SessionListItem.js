@@ -23,21 +23,33 @@ function SessionListItem({ session }) {
   });
 
   const playerUsernames = (
-    <ul>
-      {sessionPlayers.map((player) => (
-        <li key={player.id}>{player.username}</li>
-      ))}
-    </ul>
+    <>
+      {sessionPlayers.length > 0 ? (
+        <ul>
+          {sessionPlayers.map((player) => (
+            <li key={player.id}>{player.username}</li>
+          ))}
+        </ul>
+      ) : (
+        <p>Session is empty</p>
+      )}
+    </>
   );
+  
   
 
   return (
     <div key={session.id} className="session-card">
       <h2>{session.title}</h2>
-      <h3>Host: {session.creator.username}</h3>
-      <h5>
-        <i className="fab fa-discord"></i> {session.creator.discord_tag}
-      </h5>
+      <div className='host-description'>
+        <div className='host-details'>
+          <h3>Host: {session.creator.username}</h3>
+          <h5>
+            <i className="fab fa-discord"></i> {session.creator.discord_tag}
+          </h5>
+        </div>
+        <p>{session.description}</p>
+      </div>
       <div className="details">
         <div className="preferences">
           <span>
@@ -46,9 +58,7 @@ function SessionListItem({ session }) {
           <span>Mic Required: {session.mic_required ? "Yes" : "No"}</span>
         </div>
         <div class="right-details">
-          <p>{session.description}</p>
           <div class="players">
-            Players: 
             {playerUsernames}
           </div>
         </div>
