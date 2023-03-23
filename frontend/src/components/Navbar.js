@@ -1,7 +1,7 @@
 import React from 'react';
 import './Navbar.scss';
 
-export default function Navbar() {
+function Navbar() {
   const publicUrl = process.env.PUBLIC_URL;
 
   return (
@@ -15,3 +15,5 @@ export default function Navbar() {
     </nav>
   );
 }
+
+export default Navbar;
