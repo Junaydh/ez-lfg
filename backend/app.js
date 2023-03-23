@@ -14,8 +14,6 @@ initializePassport(passport);
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const testRouter = require('./routes/test');
-const registrationRouter = require('./routes/registration');
-const authRouter = require('./routes/auth');
 
 const app = express();
 
@@ -41,8 +39,9 @@ app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/test', testRouter);
+
 // Registration route
-app.post('/register', async (req, res) => {
+app.post('/api/register', async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const createUserQuery = `
@@ -64,12 +63,12 @@ app.post('/register', async (req, res) => {
 });
 
 //login route
-app.post('/login', passport.authenticate('local'), (req, res) => {
+app.post('/api/login', passport.authenticate('local'), (req, res) => {
   res.json(req.user);
 });
 
 //logout route
-app.post('/logout', (req, res) => {
+app.post('/api/logout', (req, res) => {
   req.logout();
   res.status(200).json({ message: 'Logged out successfully' });
   }
