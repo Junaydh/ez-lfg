@@ -22,7 +22,14 @@ function SessionListItem({ session }) {
     hour12: true,
   });
 
-  const playersUsernames = sessionPlayers.map((player) => player.username);
+  const playerUsernames = (
+    <ul>
+      {sessionPlayers.map((player) => (
+        <li key={player.id}>{player.username}</li>
+      ))}
+    </ul>
+  );
+  
 
   return (
     <div key={session.id} className="session-card">
@@ -31,16 +38,19 @@ function SessionListItem({ session }) {
       <h5>
         <i className="fab fa-discord"></i> {session.creator.discord_tag}
       </h5>
-      <div className="session-prefs-description">
+      <div className="details">
         <div className="preferences">
           <span>
             Players: {session.users.length}/{session.max_players}
           </span>
           <span>Mic Required: {session.mic_required ? "Yes" : "No"}</span>
         </div>
-        <p>{session.description}</p>
-        <div>
-          <span>Players: {playersUsernames.join(", ")}</span>
+        <div class="right-details">
+          <p>{session.description}</p>
+          <div class="players">
+            Players: 
+            {playerUsernames}
+          </div>
         </div>
       </div>
       <span>{formattedDate}</span>
