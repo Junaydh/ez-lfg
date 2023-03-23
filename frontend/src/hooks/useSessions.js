@@ -21,8 +21,8 @@ export function useSessions() {
                 });
             });
         });
-        Promise.all(newSessions).then(sessionsWithCreator => {
-          setSessions(sessionsWithCreator);
+        Promise.all(newSessions).then(sessionsWithCreatorAndUsers => {
+          setSessions(sessionsWithCreatorAndUsers);
         });
       })
       .catch(err => {
