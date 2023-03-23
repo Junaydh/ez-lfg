@@ -63,7 +63,10 @@ function SessionListItem({ session }) {
           </div>
         </div>
       </div>
-      <span>{formattedDate}</span>
+      <footer>
+        <span>{formattedDate}</span>
+        <button>Join Session +</button>
+      </footer>
     </div>
   );
 }

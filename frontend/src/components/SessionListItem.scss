@@ -13,6 +13,22 @@
   .fa-discord {
     color: #7289da;
   }
+  
+  footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1em;
+
+    button {
+      height: 3em;
+      background-color: orange;
+    }
+
+    button:hover {
+      box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.3);
+    }
+    
+  }
 
   .host-description {
     display: flex;
@@ -37,7 +53,7 @@
 
       .players {
         background-color: gray;
-        padding: 1em;
+        padding: 1em 1.5em;
         border: solid black;
         border-radius: 1em;
       }
