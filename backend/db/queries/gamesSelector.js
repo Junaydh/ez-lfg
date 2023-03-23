@@ -7,7 +7,6 @@ const findGames = () => {
   return db
     .query(queryString)
     .then(data => {
-      
       return data.rows;
     })
     .catch(err => {
