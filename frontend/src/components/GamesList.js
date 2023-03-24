@@ -16,6 +16,12 @@ const GamesList = () => {
       .catch(error => console.log('Error fetching games:', error));
   }, []);
 
+  useEffect(() => {
+    console.log(selectedGameId)
+  }, [selectedGameId])
+
+
+
   const handleGameClick = (gameId) => {
     setSelectedGameId(prevSelectedGameId => prevSelectedGameId === gameId ? null : gameId);
   };

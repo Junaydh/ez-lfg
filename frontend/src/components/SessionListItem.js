@@ -57,8 +57,8 @@ function SessionListItem({ session }) {
           </span>
           <span>Mic Required: {session.mic_required ? "Yes" : "No"}</span>
         </div>
-        <div class="right-details">
-          <div class="players">
+        <div className="right-details">
+          <div className="players">
             {playerUsernames}
           </div>
         </div>
