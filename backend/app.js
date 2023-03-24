@@ -12,6 +12,34 @@ var usersRouter = require('./routes/users');
 const sessionsRouter = require('./routes/sessionsApi');
 
 
+
+
+const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
+
+app.use(session({
+    store: new pgSession({
+        pool: db, // this should be your PostgreSQL database connection pool
+        tableName: 'session',
+        schemaName: 'public'
+    }),
+    secret: 'your-secret-key-here',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+    }
+}));
+
+
+
+
+
+
+
+
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
