@@ -1,4 +1,5 @@
 import './SessionListItem.scss';
+import { joinSession } from '../hooks/joinSession';
 import { getSessionPlayers } from '../hooks/getSessionPlayers';
 import { useState, useEffect } from 'react';
 
