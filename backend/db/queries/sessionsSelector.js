@@ -1,8 +1,8 @@
 const db = require('../connection');
 
-const showAll  = () => {
+const findAll  = () => {
 
-  const queryString = `SELECT * FROM users`;
+  const queryString = `SELECT * FROM sessions`;
 
   return db
   .query(queryString)
@@ -15,4 +15,4 @@ const showAll  = () => {
 }
 
 
-module.exports = { showAll };
+module.exports = { findAll };

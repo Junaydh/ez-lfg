@@ -2,6 +2,10 @@
   display: flex;
   background-color: #0080FF;
 
+  img {
+    max-height: 5em;
+  }
+
   ul {
     display: flex;
   }
