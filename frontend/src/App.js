@@ -11,7 +11,6 @@ function App() {
   return (
     <main>
       <Navbar />
-      <h1>EZLFG</h1>
       <div>
         <GamesList />
       </div>
