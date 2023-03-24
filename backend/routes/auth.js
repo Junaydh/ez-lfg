@@ -42,7 +42,20 @@ router.post('/login', async function(req, res, next) {
 
     const user = existingUsers[0];
 
+    // Compare password hashes
+    const validPassword = await bcrypt.compare(req.body.password, user.password);
+    if (!validPassword) {
+      return res.status(400).json({ message: 'Invalid username or password' });
+    }
 
+    // Generate token
+    const token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET);
+
+    // Set cookie with token
+    res.cookie('token', token, {
+      httpOnly: true,
+      sameSite: true
+    });
 
     res.status(200).json({
       message: 'Logged in successfully',
