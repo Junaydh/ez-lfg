@@ -29,3 +29,33 @@ router.post('/signup', async function(req, res, next) {
     next(err);
   }
 });
+
+
+// Login route
+router.post('/login', async function(req, res, next) {
+  try {
+    // Find user by username or email
+    const { rows: existingUsers } = await db.query('SELECT * FROM users WHERE username = $1 OR email = $1', [req.body.username]);
+    if (existingUsers.length === 0) {
+      return res.status(400).json({ message: 'Invalid username or password' });
+    }
+
+    const user = existingUsers[0];
+
+
+
+    res.status(200).json({
+      message: 'Logged in successfully',
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        profile_pic: user.profile_pic,
+        discord_tag: user.discord_tag
+      }
+    });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
