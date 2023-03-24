@@ -30,7 +30,6 @@ router.post('/signup', async function(req, res, next) {
   }
 });
 
-
 // Login route
 router.post('/login', async function(req, res, next) {
   try {
@@ -72,3 +71,12 @@ router.post('/login', async function(req, res, next) {
     next(err);
   }
 });
+
+
+// Logout route
+router.post('/logout', authenticateToken, function(req, res) {
+  res.clearCookie('token');
+  res.status(200).json({ message: 'Logged out successfully' });
+});
+
+module.exports = router;
