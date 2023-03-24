@@ -18,5 +18,21 @@ const findSession  = (session) => {
   });
 }
 
+const addUserToSession = (userId, sessionId) => {
+  const queryParams = [userId, sessionId];
+  const queryString = `INSERT INTO sessions_users (user_id, session_id)
+  VALUES ($1, $2)`;
 
-module.exports = { findSession };
+  return db
+  .query(queryString, queryParams)
+  .then(data => {
+    console.log(data.rows)
+    return data.rows;
+  })
+  .catch(err => {
+    console.error(err.message);
+  });
+}
+
+
+module.exports = { findSession, addUserToSession };

@@ -34,6 +34,20 @@ router.get('/session/:id/users', (req, res) => {
    });
 })
 
+router.post('/session/:id/users/:id', (req, res) => {
+  const { id: sessionId } = req.params;
+  const { id: userId } = req.params;
+
+  sessionSelector.addUserToSession(userId, sessionId)
+   .then(rows => {
+     res.json(rows);
+   })
+   .catch (err => {
+     console.error(err.message);
+   });
+})
+
+
 
  
 
