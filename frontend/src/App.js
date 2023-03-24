@@ -19,7 +19,7 @@ function App() {
   return (
     <main>
       <Navbar />
-      <div>
+      <div className='games-list'>
         <GamesList selectedGameId={selectedGameId} onGameClick={handleGameClick} />
       </div>
       <SessionList sessions={sessions} userId={userId}/>
