@@ -1,82 +1,65 @@
 const express = require('express');
-const router = express.Router();
 const bcrypt = require('bcrypt');
-const db = require('../db');
-const { authenticateToken } = require('../authMiddleware');
+const jwt = require('jsonwebtoken');
+const db = require('../db/connection');
+const router = express.Router();
 
-// Signup route
-router.post('/signup', async function(req, res, next) {
+router.post('/signup', async (req, res, next) => {
   try {
-    // Check if user with same username or email exists
-    const { rows: existingUsers } = await db.query('SELECT * FROM users WHERE username = $1 OR email = $2', [req.body.username, req.body.email]);
-    if (existingUsers.length > 0) {
-      return res.status(400).json({ message: 'User with that username or email already exists' });
+    const { username, password, email, discord_tag } = req.body;
+    if (!username || !password || !email || !discord_tag) {
+      res.status(400).json({ error: 'Invalid request body' });
+      return;
     }
 
-    // Hash password
-    const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(req.body.password, salt);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Add user to database
-    const { rows } = await db.query('INSERT INTO users (username, password, email, discord_tag) VALUES ($1, $2, $3, $4) RETURNING *', [req.body.username, hash, req.body.email, req.body.discord_tag]);
+    const result = await db.query(
+      'INSERT INTO users (username, password, email, discord_tag) VALUES ($1, $2, $3, $4) RETURNING id',
+      [username, hashedPassword, email, discord_tag]
+    );
+    const userId = result.rows[0].id;
 
-    res.status(201).json({
-      message: 'User created successfully',
-      user: rows[0]
-    });
+    const token = jwt.sign({ userId }, process.env.JWT_SECRET);
+    res.cookie('token', token, { httpOnly: true });
+    res.status(201).json({ id: userId, username, email, discord_tag });
   } catch (err) {
-    console.error(err);
     next(err);
   }
 });
 
-// Login route
-router.post('/login', async function(req, res, next) {
+router.post('/login', async (req, res, next) => {
   try {
-    // Find user by username or email
-    const { rows: existingUsers } = await db.query('SELECT * FROM users WHERE username = $1 OR email = $1', [req.body.username]);
-    if (existingUsers.length === 0) {
-      return res.status(400).json({ message: 'Invalid username or password' });
+    const { username, password } = req.body;
+    if (!username || !password) {
+      res.status(400).json({ error: 'Invalid request body' });
+      return;
     }
 
-    const user = existingUsers[0];
-
-    // Compare password hashes
-    const validPassword = await bcrypt.compare(req.body.password, user.password);
-    if (!validPassword) {
-      return res.status(400).json({ message: 'Invalid username or password' });
+    const result = await db.query('SELECT * FROM users WHERE username = $1', [username]);
+    if (result.rows.length === 0) {
+      res.status(401).json({ error: 'Invalid username or password' });
+      return;
     }
 
-    // Generate token
-    const token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET);
+    const user = result.rows[0];
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      res.status(401).json({ error: 'Invalid username or password' });
+      return;
+    }
 
-    // Set cookie with token
-    res.cookie('token', token, {
-      httpOnly: true,
-      sameSite: true
-    });
-
-    res.status(200).json({
-      message: 'Logged in successfully',
-      user: {
-        id: user.id,
-        username: user.username,
-        email: user.email,
-        profile_pic: user.profile_pic,
-        discord_tag: user.discord_tag
-      }
-    });
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
+    res.cookie('token', token, { httpOnly: true });
+    res.json({ id: user.id, username: user.username, email: user.email, discord_tag: user.discord_tag });
   } catch (err) {
-    console.error(err);
     next(err);
   }
 });
 
-
-// Logout route
-router.post('/logout', authenticateToken, function(req, res) {
+router.post('/logout', (req, res) => {
   res.clearCookie('token');
-  res.status(200).json({ message: 'Logged out successfully' });
+  res.sendStatus(204);
 });
 
 module.exports = router;
