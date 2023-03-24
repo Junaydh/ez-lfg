@@ -3,10 +3,9 @@ import axios from 'axios';
 import './GamesList.scss';
 import Game from './Game';
 
-const GamesList = () => {
+const GamesList = ({ selectedGameId, onGameClick }) => {
   const [games, setGames] = useState([]);
   const [searchText, setSearchText] = useState('');
-  const [selectedGameId, setSelectedGameId] = useState(null);
 
   useEffect(() => {
     axios.get('http://localhost:3001/games')
@@ -16,14 +15,8 @@ const GamesList = () => {
       .catch(error => console.log('Error fetching games:', error));
   }, []);
 
-  useEffect(() => {
-    console.log(selectedGameId)
-  }, [selectedGameId])
-
-
-
   const handleGameClick = (gameId) => {
-    setSelectedGameId(prevSelectedGameId => prevSelectedGameId === gameId ? null : gameId);
+    onGameClick(gameId);
   };
 
   const filteredGames = games.filter(game => game.name.toLowerCase().includes(searchText.toLowerCase()));

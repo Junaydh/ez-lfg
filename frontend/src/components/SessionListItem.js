@@ -2,7 +2,7 @@ import './SessionListItem.scss';
 import { getSessionPlayers } from '../hooks/getSessionPlayers';
 import { useState, useEffect } from 'react';
 
-function SessionListItem({ session }) {
+function SessionListItem({ session, userId }) {
   const [sessionPlayers, setSessionPlayers] = useState([]);
 
   useEffect(() => {
@@ -37,6 +37,13 @@ function SessionListItem({ session }) {
   );
   
   
+  const handleJoinSession = () => {
+    joinSession(userId, session.id).then(() => {
+      getSessionPlayers(session.id).then(players => {
+        setSessionPlayers(players);
+      });
+    });
+  }
 
   return (
     <div key={session.id} className="session-card">
@@ -65,7 +72,7 @@ function SessionListItem({ session }) {
       </div>
       <footer>
         <span>{formattedDate}</span>
-        <button>Join Session +</button>
+        <button onClick={handleJoinSession}>Join Session +</button>
       </footer>
     </div>
   );

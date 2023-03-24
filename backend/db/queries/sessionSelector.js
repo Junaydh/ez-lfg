@@ -33,6 +33,22 @@ const addUserToSession = (userId, sessionId) => {
     console.error(err.message);
   });
 }
+const findSessionsByGame = (gameId) => {
+  const queryParams = [gameId];
+  const queryString = `SELECT sessions.*, users.username AS creator_username, users.discord_tag AS creator_discord_tag
+  FROM sessions
+  JOIN users ON sessions.creator_id = users.id
+  WHERE game_id = $1`;
 
+  return db
+  .query(queryString, queryParams)
+  .then(data => {
+    console.log(data.rows)
+    return data.rows;
+  })
+  .catch(err => {
+    console.error(err.message);
+  });
+};
 
-module.exports = { findSession, addUserToSession };
+module.exports = { findSession, findSessionsByGame, addUserToSession };

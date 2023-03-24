@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export function useSessions() {
+export function useSessions(gameId) {
   const [sessions, setSessions] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/sessions')
+    let url = 'http://localhost:3001/sessions';
+    if (gameId) {
+      url = `http://localhost:3001/games/${gameId}/sessions`;
+    }
+    axios.get(url)
       .then(response => {
         const newSessions = response.data.map(session => {
           return axios.get(`http://localhost:3001/sessions/user/${session.creator_id}`)
@@ -28,7 +32,8 @@ export function useSessions() {
       .catch(err => {
         console.error(err.message);
       });
-  }, []);
+  }, [gameId]);
 
   return sessions;
 }
+

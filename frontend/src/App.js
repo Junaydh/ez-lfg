@@ -5,21 +5,27 @@ import GamesList from './components/GamesList';
 import FilterBar from './components/Filterbar';
 import { useSessions } from './hooks/useSessions';
 import SessionList from './components/SessionList';
+import React, { useState } from 'react';
 
 function App() {
-  const sessions = useSessions();
+  const [selectedGameId, setSelectedGameId] = useState(null);
+  const sessions = useSessions(selectedGameId);
+  const userId = 8;
+
+  const handleGameClick = (gameId) => {
+    setSelectedGameId(prevSelectedGameId => prevSelectedGameId === gameId ? null : gameId);
+  };
 
   return (
     <main>
       <Navbar />
       <div>
-        <GamesList />
+        <GamesList selectedGameId={selectedGameId} onGameClick={handleGameClick} />
       </div>
-      <div>
-        <SessionList sessions={sessions} />
-      </div>
+      <SessionList sessions={sessions} userId={userId}/>
     </main>
   );
 }
+
 
 export default App;
