@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getSessionPlayers } from './getSessionPlayers';
+import { getSessionPlayers } from '../hooks/getSessionPlayers';
 import UserListItem from './UserListItem';
 
 function UserList({ sessionId, userId }) {
@@ -25,3 +25,5 @@ function UserList({ sessionId, userId }) {
     return null;
   }
 }
+
+export default UserList;

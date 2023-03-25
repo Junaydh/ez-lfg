@@ -1,3 +1,5 @@
+import React from "react";
+
 function UserListItem({ user }) {
   return (
     <div className="user-list-item">
@@ -7,3 +9,5 @@ function UserListItem({ user }) {
     </div>
   );
 }
+
+export default UserListItem;
