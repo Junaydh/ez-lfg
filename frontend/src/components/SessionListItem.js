@@ -50,6 +50,10 @@ function SessionListItem({ session, userId }) {
   );
 
   const handleJoinOrLeaveSession = () => {
+    if (session.users.length >= session.max_players) {
+      return; // Don't allow joining when session is full
+    }
+  
     if (joined) {
       leaveSession(userId, session.id).then(() => {
         getSessionPlayers(session.id).then(players => {
@@ -67,7 +71,7 @@ function SessionListItem({ session, userId }) {
         setShowUserList(true);
       });
     }
-  }
+  };
   
 
   return (
@@ -98,11 +102,15 @@ function SessionListItem({ session, userId }) {
       {showUserList && <UserList sessionId={session.id} />}
       <footer>
         <span>{formattedDate}</span>
-        {joined ? (
-          <button className='leave-session' onClick={handleJoinOrLeaveSession}>Leave Session</button>
-        ) : (
-          <button onClick={handleJoinOrLeaveSession}>Join Session +</button>
-        )}
+        {session.users.length >= session.max_players ? (
+  <span className="session-full">Session Full</span>
+) : joined ? (
+  <button className='leave-session' onClick={handleJoinOrLeaveSession}>
+    Leave Session
+  </button>
+) : (
+  <button onClick={handleJoinOrLeaveSession}>Join Session +</button>
+)}
       </footer>
       
     </div>
