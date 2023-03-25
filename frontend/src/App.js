@@ -3,6 +3,7 @@ import './App.scss';
 import Navbar from './components/Navbar';
 import GamesList from './components/GamesList';
 import FilterBar from './components/Filterbar';
+import UserList from './components/UserList';
 import { useSessions } from './hooks/useSessions';
 import SessionList from './components/SessionList';
 import React, { useState } from 'react';
@@ -23,6 +24,7 @@ function App() {
         <GamesList selectedGameId={selectedGameId} onGameClick={handleGameClick} />
       </div>
       <SessionList sessions={sessions} userId={userId}/>
+      <UserList sessionId={1} />
     </main>
   );
 }

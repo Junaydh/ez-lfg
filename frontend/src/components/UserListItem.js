@@ -1,13 +1,16 @@
-import React from "react";
+import React from 'react';
+import './UserListItem.scss';
 
-function UserListItem({ user }) {
+const UserListItem = ({ user }) => {
+  const { username, profile_pic, discord_tag } = user;
+
   return (
-    <div className="user-list-item">
-      <img className="profile-pic" src={user.profile_pic} alt={`${user.username}'s profile pic`} />
-      <div className="username">{user.username}</div>
-      <div className="discord-tag">{user.discord_tag}</div>
-    </div>
+    <tr className="user-list-item">
+      <td className="user-list-item__username">{username}</td>
+      <td className="user-list-item__profile-pic"><img src={profile_pic} alt={`${username} profile pic`} /></td>
+      <td className="user-list-item__discord-tag">{discord_tag}</td>
+    </tr>
   );
-}
+};
 
 export default UserListItem;

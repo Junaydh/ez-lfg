@@ -1,29 +1,33 @@
-import { useEffect, useState } from 'react';
-import { getSessionPlayers } from '../hooks/getSessionPlayers';
+import React, { useEffect, useState } from 'react';
 import UserListItem from './UserListItem';
+import { getSessionPlayers } from '../hooks/getSessionPlayers';
+import './UserList.scss';
 
-function UserList({ sessionId, userId }) {
-  const [players, setPlayers] = useState([]);
+const UserList = ({ sessionId }) => {
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    getSessionPlayers(sessionId).then(players => setPlayers(players));
+    getSessionPlayers(sessionId)
+      .then(users => setUsers(users))
+      .catch(err => console.error(err.message));
   }, [sessionId]);
 
-  // Only show the list of users if the current user is in the session
-  if (players.some(player => player.id === userId)) {
-    return (
-      <div className="user-list-container">
-        <h3>Players in this session:</h3>
-        <div className="user-list">
-          {players.map(player => (
-            <UserListItem key={player.id} user={player} />
-          ))}
-        </div>
-      </div>
-    );
-  } else {
-    return null;
-  }
-}
+  return (
+    <table className="user-list">
+      <thead>
+        <tr>
+          <th className="user-list__header">Username</th>
+          <th className="user-list__header">Profile Pic</th>
+          <th className="user-list__header">Discord Tag</th>
+        </tr>
+      </thead>
+      <tbody>
+        {users.map(user => (
+          <UserListItem key={user.id} user={user} />
+        ))}
+      </tbody>
+    </table>
+  );
+};
 
 export default UserList;
