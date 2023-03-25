@@ -10,7 +10,6 @@ import React, { useState } from 'react';
 function App() {
   const [selectedGameId, setSelectedGameId] = useState(null);
   const sessions = useSessions(selectedGameId);
-  const userId = 8;
 
   const handleGameClick = (gameId) => {
     setSelectedGameId(prevSelectedGameId => prevSelectedGameId === gameId ? null : gameId);
