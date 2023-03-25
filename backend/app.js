@@ -12,17 +12,6 @@ const authRouter = require('./routes/auth');
 
 const app = express(); 
 
-
-
-
-
-// Set up routes
-app.use('/', indexRouter);
-app.use('/games', gamesRouter);
-app.use('/users', usersRouter);
-app.use('/sessions', sessionsRouter);
-app.use('/auth', authRouter);
-
 // Set up middleware
 app.use(cors());
 app.use(logger('dev'));
@@ -34,6 +23,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+// Set up routes
+app.use('/', indexRouter);
+app.use('/games', gamesRouter);
+app.use('/users', usersRouter);
+app.use('/sessions', sessionsRouter);
+app.use('/auth', authRouter);
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {

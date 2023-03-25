@@ -10,7 +10,6 @@ const findSession  = (session) => {
   return db
   .query(queryString, queryParams)
   .then(data => {
-    console.log(data.rows)
     return data.rows;
   })
   .catch(err => {
@@ -26,7 +25,6 @@ const addUserToSession = (userId, sessionId) => {
   return db
   .query(queryString, queryParams)
   .then(data => {
-    console.log(data.rows)
     return data.rows;
   })
   .catch(err => {
@@ -43,7 +41,6 @@ const findSessionsByGame = (gameId) => {
   return db
   .query(queryString, queryParams)
   .then(data => {
-    console.log(data.rows)
     return data.rows;
   })
   .catch(err => {
