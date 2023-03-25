@@ -12,14 +12,20 @@ const UserList = ({ sessionId }) => {
       .catch(err => console.error(err.message));
   }, [sessionId]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getSessionPlayers(sessionId)
+        .then(users => setUsers(users))
+        .catch(err => console.error(err.message));
+    }, 10); // update users every 10 seconds
+
+    return () => clearInterval(interval);
+  }, [sessionId]);
+
   return (
     <table className="user-list">
       <thead>
-        <tr>
-          <th className="user-list__header">Username</th>
-          <th className="user-list__header">Profile Pic</th>
-          <th className="user-list__header">Discord Tag</th>
-        </tr>
+
       </thead>
       <tbody>
         {users.map(user => (

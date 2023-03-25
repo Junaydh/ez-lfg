@@ -2,10 +2,12 @@ import './SessionListItem.scss';
 import { joinSession, leaveSession } from '../hooks/joinOrLeaveSession';
 import { getSessionPlayers } from '../hooks/getSessionPlayers';
 import { useState, useEffect } from 'react';
+import UserList from './UserList';
 
 function SessionListItem({ session, userId }) {
   const [sessionPlayers, setSessionPlayers] = useState([]);
   const [joined, setJoined] = useState(false);
+  const [showUserList, setShowUserList] = useState(false);
 
   useEffect(() => {
     getSessionPlayers(session.id).then(players => {
@@ -20,6 +22,7 @@ function SessionListItem({ session, userId }) {
       setJoined(false);
     }
   }, [session.users, userId]);
+
 
   const date = new Date(session.created_at);
   const formattedDate = date.toLocaleDateString("en-US", {
@@ -53,6 +56,7 @@ function SessionListItem({ session, userId }) {
           setSessionPlayers(players);
           setJoined(false); // update the joined state to false
         });
+        setShowUserList(false);
       });
     } else {
       joinSession(userId, session.id).then(() => {
@@ -60,6 +64,7 @@ function SessionListItem({ session, userId }) {
           setSessionPlayers(players);
           setJoined(true); // update the joined state to true
         });
+        setShowUserList(true);
       });
     }
   }
@@ -90,6 +95,7 @@ function SessionListItem({ session, userId }) {
           </div>
         </div>
       </div>
+      {showUserList && <UserList sessionId={session.id} />}
       <footer>
         <span>{formattedDate}</span>
         {joined ? (
@@ -98,6 +104,7 @@ function SessionListItem({ session, userId }) {
           <button onClick={handleJoinOrLeaveSession}>Join Session +</button>
         )}
       </footer>
+      
     </div>
   );
 }

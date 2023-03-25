@@ -23,8 +23,7 @@ function App() {
       <div className='games-list'>
         <GamesList selectedGameId={selectedGameId} onGameClick={handleGameClick} />
       </div>
-      <SessionList sessions={sessions} userId={userId}/>
-      <UserList sessionId={1} />
+      <SessionList sessions={sessions} userId={userId}/>  
     </main>
   );
 }
