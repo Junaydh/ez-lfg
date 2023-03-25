@@ -84,9 +84,9 @@ function SessionListItem({ session, userId }) {
       </div>
       <div className="details">
         <div className="preferences">
-          <span>
-            Players: {session.users.length}/{session.max_players}
-          </span>
+        <span>
+          Players: {sessionPlayers.length}/{session.max_players}
+        </span>
           <span>Mic Required: {session.mic_required ? "Yes" : "No"}</span>
         </div>
         <div className="right-details">
