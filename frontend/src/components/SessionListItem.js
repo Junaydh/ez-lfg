@@ -1,16 +1,25 @@
 import './SessionListItem.scss';
-import { joinSession } from '../hooks/joinSession';
+import { joinSession, leaveSession } from '../hooks/joinOrLeaveSession';
 import { getSessionPlayers } from '../hooks/getSessionPlayers';
 import { useState, useEffect } from 'react';
 
 function SessionListItem({ session, userId }) {
   const [sessionPlayers, setSessionPlayers] = useState([]);
+  const [joined, setJoined] = useState(false);
 
   useEffect(() => {
     getSessionPlayers(session.id).then(players => {
       setSessionPlayers(players);
     });
   }, [session.id]);
+
+  useEffect(() => {
+    if (session.users.some(user => user.id === userId)) {
+      setJoined(true);
+    } else {
+      setJoined(false);
+    }
+  }, [session.users, userId]);
 
   const date = new Date(session.created_at);
   const formattedDate = date.toLocaleDateString("en-US", {
@@ -36,15 +45,25 @@ function SessionListItem({ session, userId }) {
       )}
     </>
   );
-  
-  
-  const handleJoinSession = () => {
-    joinSession(userId, session.id).then(() => {
-      getSessionPlayers(session.id).then(players => {
-        setSessionPlayers(players);
+
+  const handleJoinOrLeaveSession = () => {
+    if (joined) {
+      leaveSession(userId, session.id).then(() => {
+        getSessionPlayers(session.id).then(players => {
+          setSessionPlayers(players);
+          setJoined(false); // update the joined state to false
+        });
       });
-    });
+    } else {
+      joinSession(userId, session.id).then(() => {
+        getSessionPlayers(session.id).then(players => {
+          setSessionPlayers(players);
+          setJoined(true); // update the joined state to true
+        });
+      });
+    }
   }
+  
 
   return (
     <div key={session.id} className="session-card">
@@ -73,7 +92,11 @@ function SessionListItem({ session, userId }) {
       </div>
       <footer>
         <span>{formattedDate}</span>
-        <button onClick={handleJoinSession}>Join Session +</button>
+        {joined ? (
+          <button className='leave-session' onClick={handleJoinOrLeaveSession}>Leave Session</button>
+        ) : (
+          <button onClick={handleJoinOrLeaveSession}>Join Session +</button>
+        )}
       </footer>
     </div>
   );
