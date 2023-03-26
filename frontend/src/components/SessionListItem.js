@@ -3,11 +3,24 @@ import { joinSession, leaveSession } from '../hooks/joinOrLeaveSession';
 import { getSessionPlayers } from '../hooks/getSessionPlayers';
 import { useState, useEffect } from 'react';
 import UserList from './UserList';
+import { getSessions } from '../hooks/getSessions';
+
 
 function SessionListItem({ session, userId }) {
   const [sessionPlayers, setSessionPlayers] = useState([]);
   const [joined, setJoined] = useState(false);
   const [showUserList, setShowUserList] = useState(false);
+  const [sessions, setSessions] = useState([]);
+
+  useEffect(() => {
+    axios.get(`http://localhost:3001/sessions`)
+      .then(response => setSessions(response.data))
+      .catch(err => {
+        console.error(err.message);
+        setSessions([]);
+      });
+  }, []);
+  
 
   useEffect(() => {
     getSessionPlayers(session.id).then(players => {
@@ -58,15 +71,23 @@ function SessionListItem({ session, userId }) {
       leaveSession(userId, session.id).then(() => {
         getSessionPlayers(session.id).then(players => {
           setSessionPlayers(players);
-          setJoined(false); // update the joined state to false
+          setJoined(false);
         });
         setShowUserList(false);
       });
     } else {
+      // Check if the user is already joined to a session
+      const alreadyJoinedSession = sessions.find(session => session.users.some(user => user.id === userId));
+      if (alreadyJoinedSession) {
+        // User has already joined a session, so show an error message or disable the join button
+        return;
+      }
+      
+      // User has not already joined a session, so proceed with joining this session
       joinSession(userId, session.id).then(() => {
         getSessionPlayers(session.id).then(players => {
           setSessionPlayers(players);
-          setJoined(true); // update the joined state to true
+          setJoined(true);
         });
         setShowUserList(true);
       });
