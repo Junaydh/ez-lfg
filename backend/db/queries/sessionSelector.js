@@ -76,5 +76,24 @@ const deleteUserFromSession = (userId, sessionId) => {
     });
 }
 
+const createSession = (userId, preferenceDetails) => {
+  const { mic_required, competitive, max_players, platform } = preferenceDetails;
+  const queryParams = [userId, mic_required, competitive, max_players, platform];
+  const queryString = `INSERT INTO sessions (creator_id, mic_required, competitive, max_players, platform)
+                        VALUES ($1, $2, $3, $4, $5)
+                        RETURNING *`;
 
-module.exports = { findSession, findSessionsByGame, addUserToSession, deleteUserFromSession };
+  return db
+    .query(queryString, queryParams)
+    .then(data => {
+      return data.rows[0];
+    })
+    .catch(err => {
+      console.error(err.message);
+      throw err;
+    });
+};
+
+
+
+module.exports = { findSession, findSessionsByGame, addUserToSession, deleteUserFromSession, createSession };

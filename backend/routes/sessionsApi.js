@@ -4,6 +4,8 @@ const sessionsSelector = require('../db/queries/sessionsSelector');
 const usersSelector = require('../db/queries/usersSelector');
 const sessionSelector = require('../db/queries/sessionSelector');
 
+
+// show all sessions
 router.get('/', (req, res) => {
   sessionsSelector.findAll()
   .then(rows => {
@@ -15,7 +17,7 @@ router.get('/', (req, res) => {
 })
 
 
-//
+// find session creator
 router.get('/user/:id', (req, res) => {
   usersSelector.findUser(req.params.id)
    .then(rows => {
@@ -50,7 +52,7 @@ router.post('/session/:sessionId/users/:userId', (req, res) => {
    });
 });
 
-// Delete a user from a session
+// delete a user from a session
 router.delete('/session/:sessionId/users/:userId', async (req, res) => {
   const { sessionId, userId } = req.params;
 
@@ -62,6 +64,22 @@ router.delete('/session/:sessionId/users/:userId', async (req, res) => {
      console.error(err.message);
    });
 });
+
+// create session
+router.post('/create/host/:userId', (req, res) => {
+  const { userId } = req.params;
+  const { game_id, region, title, description, max_players, current_players, mic_required, competitive, discord_link, platform } = req.body;
+  const preferenceDetails = { mic_required, competitive, max_players, platform };
+
+  sessionSelector.createSession(userId, preferenceDetails)
+  .then(result => {
+    console.log(result);
+  })
+  .catch(err => {
+    console.error(err.message);
+  });
+});
+
 
 
 

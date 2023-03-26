@@ -6,6 +6,7 @@ import FilterBar from './components/Filterbar';
 import UserList from './components/UserList';
 import { useSessions } from './hooks/useSessions';
 import SessionList from './components/SessionList';
+import SessionForm from './components/SessionForm';
 import React, { useState } from 'react';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
       <div className='games-list'>
         <GamesList selectedGameId={selectedGameId} onGameClick={handleGameClick} />
       </div>
+      <SessionForm />
       <SessionList sessions={sessions} userId={userId}/>  
     </main>
   );
