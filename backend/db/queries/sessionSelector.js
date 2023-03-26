@@ -76,11 +76,11 @@ const deleteUserFromSession = (userId, sessionId) => {
     });
 }
 
-const createSession = (userId, preferenceDetails) => {
-  const { mic_required, competitive, max_players, platform } = preferenceDetails;
-  const queryParams = [userId, mic_required, competitive, max_players, platform];
-  const queryString = `INSERT INTO sessions (creator_id, mic_required, competitive, max_players, platform)
-                        VALUES ($1, $2, $3, $4, $5)
+const createSession = (userId, sessionDetails) => {
+  const { game_id, mic_required, max_players, title, description, discord_link, platform } = sessionDetails;
+  const queryParams = [userId, game_id, mic_required, max_players, title, description, discord_link, platform];
+  const queryString = `INSERT INTO sessions (creator_id, game_id, mic_required, max_players, title, description, discord_link, platform)
+                        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
                         RETURNING *`;
 
   return db
@@ -93,6 +93,8 @@ const createSession = (userId, preferenceDetails) => {
       throw err;
     });
 };
+
+
 
 
 
