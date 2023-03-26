@@ -7,7 +7,7 @@ const cors = require("cors");
 const session = require('express-session');
 const passport = require('passport');
 const initializePassport = require('./auth/passport-config');
-const db = require('./db');
+const db = require('./db/connection');
 
 initializePassport(passport);
 
@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret: process.env.AUTH_SECRET,
   resave: false,
   saveUninitialized: false
 }));
