@@ -2,25 +2,10 @@ import './SessionListItem.scss';
 import { joinSession, leaveSession } from '../hooks/joinOrLeaveSession';
 import { getSessionPlayers } from '../hooks/getSessionPlayers';
 import { useState, useEffect } from 'react';
-import UserList from './UserList';
-import { getSessions } from '../hooks/getSessions';
 
-
-function SessionListItem({ session, userId }) {
+function SessionListItem({ session, userId, sessions, setSessions }) {
   const [sessionPlayers, setSessionPlayers] = useState([]);
   const [joined, setJoined] = useState(false);
-  const [showUserList, setShowUserList] = useState(false);
-  const [sessions, setSessions] = useState([]);
-
-  useEffect(() => {
-    axios.get(`http://localhost:3001/sessions`)
-      .then(response => setSessions(response.data))
-      .catch(err => {
-        console.error(err.message);
-        setSessions([]);
-      });
-  }, []);
-  
 
   useEffect(() => {
     getSessionPlayers(session.id).then(players => {
@@ -35,7 +20,6 @@ function SessionListItem({ session, userId }) {
       setJoined(false);
     }
   }, [session.users, userId]);
-
 
   const date = new Date(session.created_at);
   const formattedDate = date.toLocaleDateString("en-US", {
@@ -63,37 +47,59 @@ function SessionListItem({ session, userId }) {
   );
 
   const handleJoinOrLeaveSession = () => {
-    if (session.users.length >= session.max_players) {
-      return; // Don't allow joining when session is full
-    }
-  
     if (joined) {
       leaveSession(userId, session.id).then(() => {
         getSessionPlayers(session.id).then(players => {
           setSessionPlayers(players);
-          setJoined(false);
+          setJoined(false); // update the joined state to false
+          const updatedSessions = sessions.map(s => {
+            if (s.id === session.id) {
+              return {
+                ...s,
+                users: s.users.filter(u => u.id !== userId)
+              }
+            }
+            return s;
+          });
+          setSessions(updatedSessions); // update the sessions state with the updated session
         });
-        setShowUserList(false);
       });
     } else {
-      // Check if the user is already joined to a session
-      const alreadyJoinedSession = sessions.find(session => session.users.some(user => user.id === userId));
+      const alreadyJoinedSession = sessions.find(s => s.users.some(u => u.id === userId));
       if (alreadyJoinedSession) {
-        // User has already joined a session, so show an error message or disable the join button
-        return;
+        leaveSession(userId, alreadyJoinedSession.id).then(() => {
+          getSessionPlayers(alreadyJoinedSession.id).then(players => {
+            const updatedSessions = sessions.map(s => {
+              if (s.id === alreadyJoinedSession.id) {
+                return {
+                  ...s,
+                  users: players
+                }
+              }
+              return s;
+            });
+            setSessions(updatedSessions); // update the sessions state with the updated session
+          });
+        });
       }
-      
-      // User has not already joined a session, so proceed with joining this session
       joinSession(userId, session.id).then(() => {
         getSessionPlayers(session.id).then(players => {
           setSessionPlayers(players);
-          setJoined(true);
+          setJoined(true); // update the joined state to true
+          const updatedSessions = sessions.map(s => {
+            if (s.id === session.id) {
+              return {
+                ...s,
+                users: [...s.users, { id: userId }]
+              }
+            }
+            return s;
+          });
+          setSessions(updatedSessions); // update the sessions state with the updated session
         });
-        setShowUserList(true);
       });
     }
-  };
-  
+  }
 
   return (
     <div key={session.id} className="session-card">
@@ -109,9 +115,9 @@ function SessionListItem({ session, userId }) {
       </div>
       <div className="details">
         <div className="preferences">
-        <span>
-          Players: {sessionPlayers.length}/{session.max_players}
-        </span>
+          <span>
+            Players: {session.users.length}/{session.max_players}
+          </span>
           <span>Mic Required: {session.mic_required ? "Yes" : "No"}</span>
         </div>
         <div className="right-details">
@@ -120,20 +126,14 @@ function SessionListItem({ session, userId }) {
           </div>
         </div>
       </div>
-      {showUserList && <UserList sessionId={session.id} />}
       <footer>
         <span>{formattedDate}</span>
-        {session.users.length >= session.max_players ? (
-  <span className="session-full">Session Full</span>
-) : joined ? (
-  <button className='leave-session' onClick={handleJoinOrLeaveSession}>
-    Leave Session
-  </button>
-) : (
-  <button onClick={handleJoinOrLeaveSession}>Join Session +</button>
-)}
+        {joined ? (
+          <button className='leave-session' onClick={handleJoinOrLeaveSession}>Leave Session</button>
+        ) : (
+          <button onClick={handleJoinOrLeaveSession}>Join Session +</button>
+        )}
       </footer>
-      
     </div>
   );
 }
