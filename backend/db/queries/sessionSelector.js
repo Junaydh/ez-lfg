@@ -95,7 +95,23 @@ const createSession = (userId, sessionDetails) => {
 };
 
 
+const kickPlayer = (sessionId, userId) => {
+  const queryString = `DELETE FROM sessions_users WHERE session_id = $1 AND user_id = $2`;
+  const queryParams = [sessionId, userId];
+
+  return db
+    .query(queryString, queryParams)
+    .then(data => {
+      return data.rowCount;
+    })
+    .catch(err => {
+      console.error(err.message);
+      throw err;
+    });
+};
 
 
 
-module.exports = { findSession, findSessionsByGame, addUserToSession, deleteUserFromSession, createSession };
+
+
+module.exports = { findSession, findSessionsByGame, addUserToSession, deleteUserFromSession, createSession, kickPlayer };
