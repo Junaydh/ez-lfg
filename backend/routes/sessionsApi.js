@@ -68,10 +68,10 @@ router.delete('/session/:sessionId/users/:userId', async (req, res) => {
 // create session
 router.post('/create/host/:userId', (req, res) => {
   const { userId } = req.params;
-  const { game_id, region, title, description, max_players, current_players, mic_required, competitive, discord_link, platform } = req.body;
-  const preferenceDetails = { mic_required, competitive, max_players, platform };
-
-  sessionSelector.createSession(userId, preferenceDetails)
+  const { game_id, region, title, description, max_players, mic_required, discord_link, platform } = req.body;
+  const sessionDetails = { game_id, mic_required, max_players, title, description, discord_link, platform };
+  console.log(sessionDetails);
+  sessionSelector.createSession(userId, sessionDetails)
   .then(result => {
     console.log(result);
   })
@@ -79,7 +79,6 @@ router.post('/create/host/:userId', (req, res) => {
     console.error(err.message);
   });
 });
-
 
 
 
