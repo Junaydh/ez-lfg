@@ -1,7 +1,7 @@
 DELETE FROM users;
 
 INSERT INTO users (username, password, email, profile_pic, discord_tag)
-VALUES ('Shroud', 'password', 'shroudyrowdy@pro.com', 'https://liquipedia.net/commons/images/6/64/Shroud_at_PGL_Major_Krakow_2017.jpg', 'shroud#3452'),
+VALUES ('Shroud', 'password', 'shroudyrowdy@pro.com', 'https://upload.wikimedia.org/wikipedia/commons/0/03/Shroud_in_in_San_Jos%C3%A9%2C_2018.jpg', 'shroud#3452'),
 ('Ninja', 'password', 'ninja@mixer.com', 'https://m.media-amazon.com/images/M/MV5BMTUxODI1MzMtYzU5MC00YTNiLWIzNDMtYTJhZjAwY2EzNzkzXkEyXkFqcGdeQXVyNzg5MzIyOA@@._V1_UY1200_CR280,0,630,1200_AL_.jpg', 'Ninja#1234'),
 ('PewDiePie', 'password', 'pewdiepie@gmail.com', 'https://static.wikia.nocookie.net/youtube/images/2/24/Felix_Kjellberg.jpg/revision/latest?cb=20230222170757', 'PewDiePie#7890'),
 ('Faker', 'password', 'faker@t1.com', 'https://liquipedia.net/commons/images/thumb/d/d6/Faker_Worlds_2022_Image_2.jpg/600px-Faker_Worlds_2022_Image_2.jpg', 'Faker#9999'),

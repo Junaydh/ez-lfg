@@ -3,7 +3,7 @@ CREATE TABLE sessions (
     id SERIAL PRIMARY KEY,
     creator_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     game_id INTEGER NOT NULL REFERENCES games(id) ON DELETE CASCADE,
-    region VARCHAR(255) NOT NULL,
+    region VARCHAR(255),
     title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     max_players INTEGER NOT NULL,

@@ -76,5 +76,26 @@ const deleteUserFromSession = (userId, sessionId) => {
     });
 }
 
+const createSession = (userId, sessionDetails) => {
+  const { game_id, mic_required, max_players, title, description, discord_link, platform } = sessionDetails;
+  const queryParams = [userId, game_id, mic_required, max_players, title, description, discord_link, platform];
+  const queryString = `INSERT INTO sessions (creator_id, game_id, mic_required, max_players, title, description, discord_link, platform)
+                        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+                        RETURNING *`;
 
-module.exports = { findSession, findSessionsByGame, addUserToSession, deleteUserFromSession };
+  return db
+    .query(queryString, queryParams)
+    .then(data => {
+      return data.rows[0];
+    })
+    .catch(err => {
+      console.error(err.message);
+      throw err;
+    });
+};
+
+
+
+
+
+module.exports = { findSession, findSessionsByGame, addUserToSession, deleteUserFromSession, createSession };
