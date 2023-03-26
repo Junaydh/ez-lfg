@@ -1,5 +1,8 @@
 import React from 'react';
 import './Navbar.scss';
+import Login from './Login';
+import axios from 'axios';
+import { login, logout, register } from '../services/auth';
 
 export default function Navbar() {
   return (
@@ -9,6 +12,9 @@ export default function Navbar() {
         <li><a href="#">About</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
+      <div className='auth-buttons'>
+        <Login />
+      </div>
     </nav>
   );
 }
