@@ -1,4 +1,4 @@
-const API_URL = '/api/'; // Replace with your server's API URL
+const API_URL = 'http://localhost:3001/api/'; // Replace with your server's API URL
 
 async function register(username, password, email) {
   const response = await fetch(`${API_URL}register`, {
@@ -25,7 +25,7 @@ async function login(username, password) {
     },
     body: JSON.stringify({ username, password }),
   });
-
+  console.log(response)
   if (!response.ok) {
     throw new Error('Login failed');
   }
@@ -44,8 +44,4 @@ async function logout() {
   }
 }
 
-export default {
-  register,
-  login,
-  logout,
-};
+export { register, login, logout };
