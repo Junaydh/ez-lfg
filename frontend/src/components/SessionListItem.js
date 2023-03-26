@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 function SessionListItem({ session, userId, sessions, setSessions }) {
   const [sessionPlayers, setSessionPlayers] = useState([]);
   const [joined, setJoined] = useState(false);
+  
 
   useEffect(() => {
     getSessionPlayers(session.id).then(players => {
@@ -46,60 +47,113 @@ function SessionListItem({ session, userId, sessions, setSessions }) {
     </>
   );
 
-  const handleJoinOrLeaveSession = () => {
-    if (joined) {
-      leaveSession(userId, session.id).then(() => {
-        getSessionPlayers(session.id).then(players => {
-          setSessionPlayers(players);
-          setJoined(false); // update the joined state to false
-          const updatedSessions = sessions.map(s => {
-            if (s.id === session.id) {
-              return {
-                ...s,
-                users: s.users.filter(u => u.id !== userId)
-              }
-            }
-            return s;
-          });
-          setSessions(updatedSessions); // update the sessions state with the updated session
-        });
+  const handleJoinOrLeaveSession = async () => {
+  const alreadyJoinedSession = sessions.find(s => s.users.some(u => u.id === userId));
+  if (alreadyJoinedSession && alreadyJoinedSession.id !== session.id) {
+    await leaveSession(userId, alreadyJoinedSession.id);
+    getSessionPlayers(alreadyJoinedSession.id).then(players => {
+      const updatedSessions = sessions.map(s => {
+        if (s.id === alreadyJoinedSession.id) {
+          return {
+            ...s,
+            users: players
+          }
+        }
+        return s;
       });
-    } else {
-      const alreadyJoinedSession = sessions.find(s => s.users.some(u => u.id === userId));
-      if (alreadyJoinedSession) {
-        leaveSession(userId, alreadyJoinedSession.id).then(() => {
-          getSessionPlayers(alreadyJoinedSession.id).then(players => {
-            const updatedSessions = sessions.map(s => {
-              if (s.id === alreadyJoinedSession.id) {
-                return {
-                  ...s,
-                  users: players
-                }
-              }
-              return s;
-            });
-            setSessions(updatedSessions); // update the sessions state with the updated session
-          });
-        });
-      }
-      joinSession(userId, session.id).then(() => {
-        getSessionPlayers(session.id).then(players => {
-          setSessionPlayers(players);
-          setJoined(true); // update the joined state to true
-          const updatedSessions = sessions.map(s => {
-            if (s.id === session.id) {
-              return {
-                ...s,
-                users: [...s.users, { id: userId }]
-              }
-            }
-            return s;
-          });
-          setSessions(updatedSessions); // update the sessions state with the updated session
-        });
-      });
-    }
+      setSessions(updatedSessions); // update the sessions state with the updated session
+    });
   }
+  
+  if (joined) {
+    await leaveSession(userId, session.id);
+    getSessionPlayers(session.id).then(players => {
+      setSessionPlayers(players);
+      setJoined(false); // update the joined state to false
+      const updatedSessions = sessions.map(s => {
+        if (s.id === session.id) {
+          return {
+            ...s,
+            users: s.users.filter(u => u.id !== userId)
+          }
+        }
+        return s;
+      });
+      setSessions(updatedSessions); // update the sessions state with the updated session
+    });
+  } else {
+    joinSession(userId, session.id).then(() => {
+      getSessionPlayers(session.id).then(players => {
+        setSessionPlayers(players);
+        setJoined(true); // update the joined state to true
+        const updatedSessions = sessions.map(s => {
+          if (s.id === session.id) {
+            return {
+              ...s,
+              users: [...s.users, { id: userId }]
+            }
+          }
+          return s;
+        });
+        setSessions(updatedSessions); // update the sessions state with the updated session
+      });
+    });
+  }
+}
+
+const handleJoinSession = async () => {
+  const alreadyJoinedSession = sessions.find(s => s.users.some(u => u.id === userId));
+  if (alreadyJoinedSession && alreadyJoinedSession.id !== session.id) {
+    await leaveSession(userId, alreadyJoinedSession.id);
+    getSessionPlayers(alreadyJoinedSession.id).then(players => {
+      const updatedSessions = sessions.map(s => {
+        if (s.id === alreadyJoinedSession.id) {
+          return {
+            ...s,
+            users: players
+          }
+        }
+        return s;
+      });
+      setSessions(updatedSessions); // update the sessions state with the updated session
+    });
+  }
+  
+  joinSession(userId, session.id).then(() => {
+    getSessionPlayers(session.id).then(players => {
+      setSessionPlayers(players);
+      setJoined(true); // update the joined state to true
+      const updatedSessions = sessions.map(s => {
+        if (s.id === session.id) {
+          return {
+            ...s,
+            users: [...s.users, { id: userId }]
+          }
+        }
+        return s;
+      });
+      setSessions(updatedSessions); // update the sessions state with the updated session
+    });
+  });
+}
+
+const handleLeaveSession = async () => {
+  await leaveSession(userId, session.id);
+  getSessionPlayers(session.id).then(players => {
+    setSessionPlayers(players);
+    setJoined(false); // update the joined state to false
+    const updatedSessions = sessions.map(s => {
+      if (s.id === session.id) {
+        return {
+          ...s,
+          users: s.users.filter(u => u.id !== userId)
+        }
+      }
+      return s;
+    });
+    setSessions(updatedSessions); // update the sessions state with the updated session
+  });
+}
 
   return (
     <div key={session.id} className="session-card">
