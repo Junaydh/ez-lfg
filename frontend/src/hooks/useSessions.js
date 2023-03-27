@@ -17,16 +17,9 @@ export function useSessions(gameId) {
               session.creator = response.data[0];
               return session;
             })
-            .then(session => {
-              return axios.get(`http://localhost:3001/sessions/session/${session.id}/users`)
-                .then(response => {
-                  session.users = response.data;
-                  return session;
-                });
-            });
         });
-        Promise.all(newSessions).then(sessionsWithCreatorAndUsers => {
-          setSessions(sessionsWithCreatorAndUsers);
+        Promise.all(newSessions).then(sessionsWithCreator => {
+          setSessions(sessionsWithCreator);
         });
       })
       .catch(err => {
