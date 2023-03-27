@@ -68,7 +68,7 @@ function SessionListItem({ session, userId }) {
   );
 
   const handleJoinOrLeaveSession = () => {
-    if (session.users.length >= session.max_players) {
+    if (sessionPlayers.length >= session.max_players) {
       return; // Don't allow joining when session is full
     }
   
