@@ -86,13 +86,24 @@ const createSession = (userId, sessionDetails) => {
   return db
     .query(queryString, queryParams)
     .then(data => {
-      return data.rows[0];
+      const sessionId = data.rows[0].id; 
+      const sessionUserId = data.rows[0].creator_id; 
+      const sessionUserParams = [sessionId, sessionUserId];
+      // have host join session as soon as they create it
+      const sessionUserQuery = `INSERT INTO sessions_users (session_id, user_id)
+                                  VALUES ($1, $2)`;
+      return db.query(sessionUserQuery, sessionUserParams)
+        .then(() => data.rows[0]) 
+        .catch(err => {
+          console.error(err.message);
+          throw err;
+        });
     })
     .catch(err => {
       console.error(err.message);
       throw err;
     });
-};
+  }
 
 
 const kickPlayer = (sessionId, userId) => {
