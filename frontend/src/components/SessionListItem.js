@@ -55,7 +55,7 @@ function SessionListItem({ session, userId }) {
           {sessionPlayers.map((player) => (
             <li key={player.id}>
               {player.username}
-              {isCreator && (
+              {isCreator && player.id !== userId && (
                 <button className='kick-button' onClick={() => handleKickPlayer(player.id)}>Kick</button>
               )}
             </li>
@@ -66,6 +66,7 @@ function SessionListItem({ session, userId }) {
       )}
     </>
   );
+  
 
   const handleJoinOrLeaveSession = () => {
     if (sessionPlayers.length >= session.max_players) {
