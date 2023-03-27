@@ -80,6 +80,20 @@ router.post('/create/host/:userId', (req, res) => {
   });
 });
 
+// kick players from session
+router.delete('/session/:sessionId/kick/:userId', (req, res) => {
+  const { sessionId, userId } = req.params;
+  sessionSelector.kickPlayer(sessionId, userId)
+    .then(result => {
+      console.log(result);
+      res.status(200).send(result);
+    })
+    .catch(err => {
+      console.error(err.message);
+      res.status(500).send(err.message);
+    });
+});
+
 
 
 
