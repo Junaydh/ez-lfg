@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Navbar.scss';
 import Login from './Login';
-import axios from 'axios';
-import { login, logout, register } from '../services/auth';
+import { AuthContext } from '../contexts/auth';
+
 
 export default function Navbar() {
+  const { user } = useContext(AuthContext);
+
+  const renderLogin = () => {
+    if (user) {
+      return (
+        <Logout />
+      );
+    } else {
+      return (
+        <Login />
+      )
+    }
+}
+
+
   return (
     <nav className='navigation'>
       <ul>
@@ -13,7 +28,7 @@ export default function Navbar() {
         <li><a href="#">Contact</a></li>
       </ul>
       <div className='auth-buttons'>
-        <Login />
+        {renderLogin()}
       </div>
     </nav>
   );

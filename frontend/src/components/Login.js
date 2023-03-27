@@ -18,7 +18,6 @@ const Login = () => {
     event.preventDefault();
     try {
       const user = await login(username, password);
-      console.log(user);
       // Redirect to dashboard or home page
     } catch (error) {
       console.error(error);
