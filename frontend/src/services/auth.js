@@ -1,12 +1,12 @@
-const API_URL = 'http://localhost:3001/api/'; // Replace with your server's API URL
+const API_URL = '/api/'; // Replace with your server's API URL
 
-async function register(username, password, email) {
+async function register(username, password, email, profile_pic, discord_tag) {
   const response = await fetch(`${API_URL}register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ username, password, email }),
+    body: JSON.stringify({ username, password, email, profile_pic, discord_tag }),
   });
 
   if (!response.ok) {
