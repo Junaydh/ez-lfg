@@ -8,6 +8,7 @@ const session = require('express-session');
 const passport = require('passport');
 const initializePassport = require('./auth/passport-config');
 const db = require('./db/connection');
+const bcrypt = require('bcrypt');
 
 initializePassport(passport);
 
@@ -41,7 +42,7 @@ app.use('/users', usersRouter);
 app.use('/test', testRouter);
 
 // Registration route
-app.post('/api/register', async (req, res) => {
+app.post('/api/register', async (req, res, next) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const createUserQuery = `
@@ -49,7 +50,7 @@ app.post('/api/register', async (req, res) => {
       VALUES ($1, $2, $3, $4, $5)
       RETURNING id, username, email, profile_pic, discord_tag
     `;
-    const createUserResult = await db.query(createUserQuery, [req.body.username, hashedPassword, req.body.email, req.body.profile_pic, req.body.discord_tag]);
+    const createUserResult = await db.query(createUserQuery, [req.body.username, hashedPassword, req.body.email, req.body.profilePic, req.body.discordTag]);
     const user = createUserResult.rows[0];
     req.login(user, (error) => {
       if (error) {
@@ -69,11 +70,13 @@ app.post('/api/login', passport.authenticate('local'), (req, res) => {
 
 //logout route
 app.post('/api/logout', (req, res) => {
-  req.logout();
+  req.logout(function(err) {
+    if (err) {
+      console.log(err);
+    }
+  });
   res.status(200).json({ message: 'Logged out successfully' });
-  }
-);
-
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
