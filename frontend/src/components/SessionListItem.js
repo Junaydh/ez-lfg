@@ -1,29 +1,24 @@
 import './SessionListItem.scss';
 import { joinSession, leaveSession } from '../hooks/joinOrLeaveSession';
 import { getSessionPlayers } from '../hooks/getSessionPlayers';
-import { kickPlayer } from '../hooks/kickPlayer';
 import { useState, useEffect } from 'react';
 import UserList from './UserList';
-
 function SessionListItem({ session, userId }) {
   const [sessionPlayers, setSessionPlayers] = useState([]);
   const [joined, setJoined] = useState(false);
   const [showUserList, setShowUserList] = useState(false);
-
   useEffect(() => {
     getSessionPlayers(session.id).then(players => {
       setSessionPlayers(players);
     });
   }, [session.id]);
-
   useEffect(() => {
     if (sessionPlayers.some(user => user.id === userId)) {
       setJoined(true);
     } else {
       setJoined(false);
     }
-  }, [sessionPlayers, userId]);
-
+  }, [session.users, userId]);
   const date = new Date(session.created_at);
   const formattedDate = date.toLocaleDateString("en-US", {
     year: "numeric",
@@ -34,31 +29,12 @@ function SessionListItem({ session, userId }) {
     second: "numeric",
     hour12: true,
   });
-
-  const isCreator = session.creator_id === userId;
-
-  const handleKickPlayer = (playerId) => {
-    kickPlayer(session.id, playerId)
-      .then(() => getSessionPlayers(session.id))
-      .then(players => {
-        setSessionPlayers(players);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  };
-
   const playerUsernames = (
     <>
       {sessionPlayers.length > 0 ? (
         <ul>
           {sessionPlayers.map((player) => (
-            <li key={player.id}>
-              {player.username}
-              {isCreator && (
-                <button className='kick-button' onClick={() => handleKickPlayer(player.id)}>Kick</button>
-              )}
-            </li>
+            <li key={player.id}>{player.username}</li>
           ))}
         </ul>
       ) : (
@@ -71,30 +47,26 @@ function SessionListItem({ session, userId }) {
     if (sessionPlayers.length >= session.max_players) {
       return; // Don't allow joining when session is full
     }
-  
+
     if (joined) {
-      leaveSession(userId, session.id)
-        .then(() => getSessionPlayers(session.id))
-        .then(players => {
+      leaveSession(userId, session.id).then(() => {
+        getSessionPlayers(session.id).then(players => {
           setSessionPlayers(players);
-          setJoined(false);
-        })
-        .catch(error => {
-          console.error(error);
+          setJoined(false); // update the joined state to false
         });
+        setShowUserList(false);
+      });
     } else {
-      joinSession(userId, session.id)
-        .then(() => getSessionPlayers(session.id))
-        .then(players => {
+      joinSession(userId, session.id).then(() => {
+        getSessionPlayers(session.id).then(players => {
           setSessionPlayers(players);
-          setJoined(true);
-        })
-        .catch(error => {
-          console.error(error);
+          setJoined(true); // update the joined state to true
         });
+        setShowUserList(true);
+      });
     }
   };
-  
+
 
   return (
     <div key={session.id} className="session-card">
@@ -110,15 +82,11 @@ function SessionListItem({ session, userId }) {
       </div>
       <div className="details">
         <div className="preferences">
+          {sessionPlayers.length === 0 ? (<div className="players">{playerUsernames}</div>) : <></>}
         <span>
           Players: {sessionPlayers.length}/{session.max_players}
         </span>
           <span>Mic Required: {session.mic_required ? "Yes" : "No"}</span>
-        </div>
-        <div className="right-details">
-          <div className="players">
-            {playerUsernames}
-          </div>
         </div>
       </div>
       {showUserList && <UserList sessionId={session.id} />}
@@ -134,9 +102,8 @@ function SessionListItem({ session, userId }) {
   <button onClick={handleJoinOrLeaveSession}>Join Session +</button>
 )}
       </footer>
-      
+
     </div>
   );
 }
-
 export default SessionListItem;
