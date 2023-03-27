@@ -7,7 +7,8 @@ import UserList from './components/UserList';
 import { useSessions } from './hooks/useSessions';
 import SessionList from './components/SessionList';
 import SessionForm from './components/SessionForm';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import Button from '@mui/material/Button';
 
 function App() {
   const [selectedGameId, setSelectedGameId] = useState(null);
@@ -20,6 +21,9 @@ function App() {
 
   return (
     <main>
+       <div>
+      <Button variant="contained">Hello World</Button>
+    </div>
       <Navbar />
       <div className='games-list'>
         <GamesList selectedGameId={selectedGameId} onGameClick={handleGameClick} />
