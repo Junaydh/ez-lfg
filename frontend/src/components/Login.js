@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useContext } from 'react';
 import { login } from '../services/auth';
+import { AuthContext } from '../contexts/auth';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const { updateUser } = useContext(AuthContext);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -18,6 +19,7 @@ const Login = () => {
     event.preventDefault();
     try {
       const user = await login(username, password);
+      updateUser(user);
       // Redirect to dashboard or home page
     } catch (error) {
       console.error(error);
