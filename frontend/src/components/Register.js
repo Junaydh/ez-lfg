@@ -11,6 +11,18 @@ const Signup = () => {
 
   const history = useHistory();
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      await register(username, password, email, profilePic, discordTag);
+      history.push('/');
+    } catch (error) {
+      console.error(error);
+      setError('Registration failed');
+    }
+  };
+  
   return (
     <div>
       <h2>Sign Up</h2>
