@@ -1,55 +1,75 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
 import { register } from '../services/auth';
+import { AuthContext } from '../contexts/auth';
 
-const Signup = () => {
+const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [discordTag, setDiscordTag] = useState('');
-  const [error, setError] = useState('');
+  const [profilePic, setProfilePic] = useState('');
+  const { updateUser } = useContext(AuthContext);
 
-  const history = useHistory();
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handleDiscordTagChange = (event) => {
+    setDiscordTag(event.target.value);
+  };
+
+  const handleProfilePicChange = (event) => {
+    setProfilePic(event.target.value);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     try {
-      await register(username, password, email, profilePic, discordTag);
-      history.push('/');
+      const user = await register(username, password, email, profilePic, discordTag);
+      updateUser(user);
     } catch (error) {
       console.error(error);
-      setError('Registration failed');
     }
   };
-  
+
   return (
-    <div>
-      <h2>Sign Up</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username:</label>
-          <input type="text" value={username} onChange={(event) => setUsername(event.target.value)} />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
-        </div>
-        <div>
-          <label>Discord Tag:</label>
-          <input type="text" value={discordTag} onChange={(event) => setDiscordTag(event.target.value)} />
-        </div>
-        <div>
-          <button type="submit">Register</button>
-        </div>
-      </form>
-      {error && <div>{error}</div>}
-    </div>
+    <form onSubmit={handleSubmit}>
+      <label>
+        Username:
+        <input type="text" value={username} onChange={handleUsernameChange} />
+      </label>
+      <br />
+      <label>
+        Password:
+        <input type="password" value={password} onChange={handlePasswordChange} />
+      </label>
+      <br />
+      <label>
+        Email:
+        <input type="text" value={email} onChange={handleEmailChange} />
+      </label>
+      <br />
+      <label>
+        Profile Picture:
+        <input type="text" value={profilePic} onChange={handleProfilePicChange} />
+      </label>
+      <br />
+      <label>
+        Discord Tag:
+        <input type="text" value={discordTag} onChange={handleDiscordTagChange} />
+      </label>
+      <br />
+      <button type="submit">Register</button>
+    </form>
   );
 };
 
-export default Signup;
+export default Register;
