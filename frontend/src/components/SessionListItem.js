@@ -124,7 +124,6 @@ function SessionListItem({ session, userId }) {
         ) : (
           <button onClick={handleJoinOrLeaveSession}>Join Session +</button>
         )}
-        <span>{session.id}</span>
       </footer>
       
     </div>
