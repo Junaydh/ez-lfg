@@ -1,6 +1,7 @@
 import './SessionListItem.scss';
 import { joinSession, leaveSession } from '../hooks/joinOrLeaveSession';
 import { getSessionPlayers } from '../hooks/getSessionPlayers';
+import { kickPlayer } from '../hooks/kickPlayer';
 import { useState, useEffect } from 'react';
 import UserList from './UserList';
 
@@ -16,13 +17,12 @@ function SessionListItem({ session, userId }) {
   }, [session.id]);
 
   useEffect(() => {
-    if (session.users.some(user => user.id === userId)) {
+    if (sessionPlayers.some(user => user.id === userId)) {
       setJoined(true);
     } else {
       setJoined(false);
     }
-  }, [session.users, userId]);
-
+  }, [sessionPlayers, userId]);
 
   const date = new Date(session.created_at);
   const formattedDate = date.toLocaleDateString("en-US", {
@@ -35,12 +35,30 @@ function SessionListItem({ session, userId }) {
     hour12: true,
   });
 
+  const isCreator = session.creator_id === userId;
+
+  const handleKickPlayer = (playerId) => {
+    kickPlayer(session.id, playerId)
+      .then(() => getSessionPlayers(session.id))
+      .then(players => {
+        setSessionPlayers(players);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
   const playerUsernames = (
     <>
       {sessionPlayers.length > 0 ? (
         <ul>
           {sessionPlayers.map((player) => (
-            <li key={player.id}>{player.username}</li>
+            <li key={player.id}>
+              {player.username}
+              {isCreator && (
+                <button className='kick-button' onClick={() => handleKickPlayer(player.id)}>Kick</button>
+              )}
+            </li>
           ))}
         </ul>
       ) : (
@@ -51,24 +69,27 @@ function SessionListItem({ session, userId }) {
 
   const handleJoinOrLeaveSession = () => {
     if (joined) {
-      leaveSession(userId, session.id).then(() => {
-        getSessionPlayers(session.id).then(players => {
+      leaveSession(userId, session.id)
+        .then(() => getSessionPlayers(session.id))
+        .then(players => {
           setSessionPlayers(players);
-          setJoined(false); // update the joined state to false
+          setJoined(false);
+        })
+        .catch(error => {
+          console.error(error);
         });
-        setShowUserList(false);
-      });
     } else {
-      joinSession(userId, session.id).then(() => {
-        getSessionPlayers(session.id).then(players => {
+      joinSession(userId, session.id)
+        .then(() => getSessionPlayers(session.id))
+        .then(players => {
           setSessionPlayers(players);
-          setJoined(true); // update the joined state to true
+          setJoined(true);
+        })
+        .catch(error => {
+          console.error(error);
         });
-        setShowUserList(true);
-      });
     }
-  }
-  
+  };
 
   return (
     <div key={session.id} className="session-card">
@@ -103,6 +124,7 @@ function SessionListItem({ session, userId }) {
         ) : (
           <button onClick={handleJoinOrLeaveSession}>Join Session +</button>
         )}
+        <span>{session.id}</span>
       </footer>
       
     </div>
