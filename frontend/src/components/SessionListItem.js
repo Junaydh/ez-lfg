@@ -124,7 +124,7 @@ function SessionListItem({ session, userId }) {
       {showUserList && <UserList sessionId={session.id} />}
       <footer>
         <span>{formattedDate}</span>
-        {session.users.length >= session.max_players ? (
+        {sessionPlayers.length >= session.max_players ? (
   <span className="session-full">Session Full</span>
 ) : joined ? (
   <button className='leave-session' onClick={handleJoinOrLeaveSession}>
