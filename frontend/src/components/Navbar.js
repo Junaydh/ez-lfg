@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import './Navbar.scss';
-import Button from '@mui/material/Button'
+
 
 function Navbar() {
   const publicUrl = process.env.PUBLIC_URL;
@@ -13,7 +13,6 @@ function Navbar() {
         <li><a href="#">About</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
-      
     </nav>
   );
 }

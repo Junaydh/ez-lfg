@@ -24,7 +24,7 @@
   overflow-x: auto;
   padding: 10px;
   box-sizing: border-box;
-  max-height: calc(80px - 2 * 10px); /* Calculate max-height of games container based on padding and border of parent container */
+  max-height: calc(200px - 2 * 10px); /* Calculate max-height of games container based on padding and border of parent container */
 
   &::-webkit-scrollbar {
     height: 10px;

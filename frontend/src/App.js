@@ -21,9 +21,7 @@ function App() {
 
   return (
     <main>
-       <div>
-      <Button variant="contained">Hello World</Button>
-    </div>
+      
       <Navbar />
       <div className='games-list'>
         <GamesList selectedGameId={selectedGameId} onGameClick={handleGameClick} />
