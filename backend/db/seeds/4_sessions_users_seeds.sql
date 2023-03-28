@@ -1,3 +1,5 @@
+TRUNCATE TABLE sessions_users RESTART IDENTITY CASCADE;
+
 INSERT INTO sessions_users (user_id, session_id)
 VALUES (1, 1),
        (2, 1),
