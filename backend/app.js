@@ -9,12 +9,12 @@ const passport = require('passport');
 const initializePassport = require('./auth/passport-config');
 const db = require('./db/connection');
 const bcrypt = require('bcrypt');
-const indexRouter = require('./routes/index');
-const gamesRouter = require('./routes/gamesApi');
+
 
 initializePassport(passport);
 
 const indexRouter = require('./routes/index');
+const gamesRouter = require('./routes/gamesApi');
 const usersRouter = require('./routes/users');
 const sessionsRouter = require('./routes/sessionsApi');
 
@@ -38,9 +38,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-
-
 app.use('/', indexRouter);
 app.use('/games', gamesRouter);
 app.use('/users', usersRouter);
@@ -50,43 +47,13 @@ app.use('/sessions', sessionsRouter);
 app.post('/api/register', async (req, res, next) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const createUserQuery = `
-      INSERT INTO users (username, password, email, profile_pic, discord_tag)
-      VALUES ($1, $2, $3, $4, $5)
-      RETURNING id, username, email, profile_pic, discord_tag
-    `;
-    const createUserResult = await db.query(createUserQuery, [req.body.username, hashedPassword, req.body.email, req.body.profilePic, req.body.discordTag]);
-    const user = createUserResult.rows[0];
-    req.login(user, (error) => {
-      if (error) {
-        return next(error);
-      }
-      return res.redirect('/');
-    });
-  } catch (error) {
-    return next(error);
-  }
-});
-
-//login route
-app.post('/api/login', passport.authenticate('local'), (req, res) => {
-  res.json(req.user);
-});
-
-//logout route
-app.post('/api/logout', (req, res) => {
-  req.logout(function(err) {
-    if (err) {
-      console.log(err);
+    const checkUserQuery = `
+      SELECT username FROM users WHERE LOWER(username) = LOWER($1)
+      `;
+    const checkUserResult = await db.query(checkUserQuery, [req.body.username]);
+    if (checkUserResult.rows.length > 0) {
+      return res.status(400).json({ message: 'Username already exists' });
     }
-  });
-  res.status(200).json({ message: 'Logged out successfully' });
-});
-
-// Registration route
-app.post('/api/register', async (req, res, next) => {
-  try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const createUserQuery = `
       INSERT INTO users (username, password, email, profile_pic, discord_tag)
       VALUES ($1, $2, $3, $4, $5)
@@ -97,8 +64,8 @@ app.post('/api/register', async (req, res, next) => {
     req.login(user, (error) => {
       if (error) {
         return next(error);
-      }
-      return res.redirect('/');
+      };
+      return res.json(user);
     });
   } catch (error) {
     return next(error);
