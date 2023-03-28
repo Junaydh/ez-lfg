@@ -1,15 +1,21 @@
+require('dotenv').config();
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require("cors");
-const indexRouter = require('./routes/index');
-const gamesRouter = require('./routes/gamesApi');
+const client = require('./discordBot');
+
 
 const app = express();   
 var usersRouter = require('./routes/users');
 const sessionsRouter = require('./routes/sessionsApi');
+const indexRouter = require('./routes/index');
+const gamesRouter = require('./routes/gamesApi');
+
+client.login(process.env.TOKEN);
 
 
 // view engine setup
