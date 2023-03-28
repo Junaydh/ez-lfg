@@ -86,7 +86,7 @@ router.delete('/session/:sessionId/kick/:userId', (req, res) => {
   sessionSelector.kickPlayer(sessionId, userId)
     .then(result => {
       console.log(result);
-      res.status(200).send(result);
+      res.sendStatus(200);
     })
     .catch(err => {
       console.error(err.message);
