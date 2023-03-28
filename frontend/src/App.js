@@ -14,13 +14,10 @@ function App() {
   const [selectedGameCover, setSelectedGameCover] = useState(null);
   const sessions = useSessions(selectedGameId);
   const userId = 8;
-
-
   const handleGameClick = (gameId, gameCover) => {
     setSelectedGameId(prevSelectedGameId => prevSelectedGameId === gameId ? null : gameId);
     setSelectedGameCover(gameCover);
   };
-
   return (
     <main>
       <Navbar />
@@ -30,11 +27,9 @@ function App() {
       <div className='create-session'> 
         <SessionForm />
       </div>
-      
+
       <SessionList gameCover ={selectedGameCover} sessions={sessions} userId={userId}/>  
     </main>
   );
 }
-
-
 export default App;
