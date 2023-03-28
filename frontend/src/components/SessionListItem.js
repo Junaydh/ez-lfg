@@ -38,7 +38,10 @@ function SessionListItem({ session, userId }) {
   const handleKick = (playerId) => {
     kickPlayer(session.id, playerId).then(() => {
       getSessionPlayers(session.id).then(players => {
-        setSessionPlayers(players);
+        setSessionPlayers(players)
+        .catch(err => {
+          return err.message
+        })
       });
     });
   }; 
