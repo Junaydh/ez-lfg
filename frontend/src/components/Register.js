@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { register } from '../services/auth';
 import { AuthContext } from '../contexts/auth';
 
-const Register = () => {
+const Register = ({ setShowRegistration, setError }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -35,13 +35,17 @@ const Register = () => {
     try {
       const user = await register(username, password, email, profilePic, discordTag);
       updateUser(user);
+      setShowRegistration(false)
     } catch (error) {
-      console.error(error);
+      setError('Username already in use. Please try again.')
+      setTimeout(() => {
+        setError('');
+      }, 5000);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="register-form">
       <label>
         Username:
         <input type="text" value={username} onChange={handleUsernameChange} />
