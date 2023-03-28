@@ -15,10 +15,6 @@ function App() {
   const sessions = useSessions(selectedGameId);
   const userId = 8;
 
-  useEffect(() => {
-    document.documentElement.style.setProperty('--selectedGameCover', selectedGameCover);
-  }, [selectedGameCover]);
-
 
   const handleGameClick = (gameId, gameCover) => {
     setSelectedGameId(prevSelectedGameId => prevSelectedGameId === gameId ? null : gameId);
@@ -32,7 +28,7 @@ function App() {
         <GamesList selectedGameId={selectedGameId} onGameClick={handleGameClick} />
       </div>
       <SessionForm />
-      <SessionList sessions={sessions} userId={userId}/>  
+      <SessionList gameCover ={selectedGameCover} sessions={sessions} userId={userId}/>  
     </main>
   );
 }

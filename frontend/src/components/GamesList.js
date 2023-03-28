@@ -7,6 +7,9 @@ const GamesList = ({ selectedGameId, onGameClick }) => {
   const [games, setGames] = useState([]);
   const [searchText, setSearchText] = useState('');
 
+
+
+
   useEffect(() => {
     axios.get('http://localhost:3001/games')
       .then(response => {
@@ -21,6 +24,7 @@ const GamesList = ({ selectedGameId, onGameClick }) => {
 
   const filteredGames = games.filter(game => game.name.toLowerCase().includes(searchText.toLowerCase()));
 
+  
   return (
     <div className="games-list-container">
       <input
