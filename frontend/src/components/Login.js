@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { login } from '../services/auth';
 import { AuthContext } from '../contexts/auth';
 
-const Login = () => {
+const Login = ({setError}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { updateUser } = useContext(AuthContext);
@@ -22,7 +22,10 @@ const Login = () => {
       updateUser(user);
       // Redirect to dashboard or home page
     } catch (error) {
-      console.error(error);
+      setError('Invalid credentials. Please try again.')
+      setTimeout(() => {
+        setError('');
+      }, 5000);
     }
   };
 
