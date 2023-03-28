@@ -7,12 +7,21 @@ import UserList from './components/UserList';
 import { useSessions } from './hooks/useSessions';
 import SessionList from './components/SessionList';
 import SessionForm from './components/SessionForm';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { AuthContext } from './contexts/auth';
 
 function App() {
   const [selectedGameId, setSelectedGameId] = useState(null);
   const sessions = useSessions(selectedGameId);
-  const userId = 8;
+  const { user } = useContext(AuthContext);
+
+  let userId;
+
+  if (!user) {
+    userId = null;
+  } else {
+    userId = user.id;
+  }
 
   const handleGameClick = (gameId) => {
     setSelectedGameId(prevSelectedGameId => prevSelectedGameId === gameId ? null : gameId);
