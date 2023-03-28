@@ -6,7 +6,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require("cors");
-const client = require('./discordBot');
+const { client } = require('./discordBot');
 
 
 const app = express();   
