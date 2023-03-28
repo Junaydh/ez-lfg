@@ -11,12 +11,14 @@ import React, { useState } from 'react';
 
 function App() {
   const [selectedGameId, setSelectedGameId] = useState(null);
-  const sessions = useSessions(selectedGameId);
+  const [sessions, setSessions] = useState([]);
   const userId = 8;
 
   const handleGameClick = (gameId) => {
     setSelectedGameId(prevSelectedGameId => prevSelectedGameId === gameId ? null : gameId);
   };
+
+  const sessionsFromHook = useSessions(selectedGameId, sessions, setSessions);
 
   return (
     <main>
@@ -24,11 +26,10 @@ function App() {
       <div className='games-list'>
         <GamesList selectedGameId={selectedGameId} onGameClick={handleGameClick} />
       </div>
-      <SessionForm />
-      <SessionList sessions={sessions} userId={userId}/>  
+      <SessionForm sessions={sessionsFromHook} setSessions={setSessions} />
+      <SessionList sessions={sessionsFromHook} userId={userId}/>  
     </main>
   );
 }
-
 
 export default App;

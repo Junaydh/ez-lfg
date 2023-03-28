@@ -2,7 +2,7 @@ import './SessionForm.scss';
 import React, { useState } from 'react';
 import { createSession } from '../hooks/createSession';
 
-const SessionForm = () => {
+const SessionForm = ({ sessions, setSessions }) => {
   const [showForm, setShowForm] = useState(false);
 
   const [preferenceDetails, setPreferenceDetails] = useState({
@@ -23,9 +23,20 @@ const SessionForm = () => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    createSession(preferenceDetails);
+    const createdSession = await createSession(preferenceDetails, sessions);
+    setPreferenceDetails({
+      game_id: 1,
+      mic_required: false,
+      max_players: 2,
+      title: '',
+      description: '',
+      discord_link: '',
+      platform: 'PC'
+    });
+    setShowForm(false);
+    setSessions(prevSessions => [...prevSessions, createdSession]);
   };
 
   const toggleForm = () => {
@@ -34,7 +45,7 @@ const SessionForm = () => {
 
   return (
     <div className='form-div'>
-     <button className="session-form-button" onClick={toggleForm}>Create a new session</button>
+      <button className="session-form-button" onClick={toggleForm}>Create a new session</button>
       {showForm && (
         <form className='session-form' onSubmit={handleSubmit}>
           <label>

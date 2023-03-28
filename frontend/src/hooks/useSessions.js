@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export function useSessions(gameId) {
-  const [sessions, setSessions] = useState([]);
-
+export function useSessions(gameId, sessions, setSessions) {
   useEffect(() => {
     let url = 'http://localhost:3001/sessions';
     if (gameId) {
@@ -25,8 +23,7 @@ export function useSessions(gameId) {
       .catch(err => {
         console.error(err.message);
       });
-  }, [gameId]);
+  }, [gameId, setSessions]);
 
   return sessions;
 }
-
