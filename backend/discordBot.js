@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits } = require('discord.js');
+const { Client, GatewayIntentBits, ChannelType, PermissionsBitField } = require('discord.js');
 
 const client = new Client({
   intents: [
@@ -20,4 +20,4 @@ client.on("messageCreate", msg => {
 });
 
 
-module.exports = client;
+module.exports = { client, ChannelType, PermissionsBitField };
