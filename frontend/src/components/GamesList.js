@@ -15,8 +15,8 @@ const GamesList = ({ selectedGameId, onGameClick }) => {
       .catch(error => console.log('Error fetching games:', error));
   }, []);
 
-  const handleGameClick = (gameId) => {
-    onGameClick(gameId);
+  const handleGameClick = (gameId, gameCover) => {
+    onGameClick(gameId, gameCover);
   };
 
   const filteredGames = games.filter(game => game.name.toLowerCase().includes(searchText.toLowerCase()));
@@ -35,9 +35,10 @@ const GamesList = ({ selectedGameId, onGameClick }) => {
           <Game
             key={game.id}
             logo={game.game_logo}
+            cover={game.game_cover}
             name={game.name}
             selected={game.id === selectedGameId}
-            onClick={() => handleGameClick(game.id)}
+            onClick={() => handleGameClick(game.id, game.game_cover)}
           />
         ))}
       </div>

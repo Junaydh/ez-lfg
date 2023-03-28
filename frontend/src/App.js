@@ -7,21 +7,26 @@ import UserList from './components/UserList';
 import { useSessions } from './hooks/useSessions';
 import SessionList from './components/SessionList';
 import SessionForm from './components/SessionForm';
-import React, { useState, useContext } from 'react';
-import Button from '@mui/material/Button';
+import React, { useState, useEffect } from 'react';
 
 function App() {
   const [selectedGameId, setSelectedGameId] = useState(null);
+  const [selectedGameCover, setSelectedGameCover] = useState(null);
   const sessions = useSessions(selectedGameId);
   const userId = 8;
 
-  const handleGameClick = (gameId) => {
+  useEffect(() => {
+    document.documentElement.style.setProperty('--selectedGameCover', selectedGameCover);
+  }, [selectedGameCover]);
+
+
+  const handleGameClick = (gameId, gameCover) => {
     setSelectedGameId(prevSelectedGameId => prevSelectedGameId === gameId ? null : gameId);
+    setSelectedGameCover(gameCover);
   };
 
   return (
     <main>
-      
       <Navbar />
       <div className='games-list'>
         <GamesList selectedGameId={selectedGameId} onGameClick={handleGameClick} />

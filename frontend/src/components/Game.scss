@@ -4,14 +4,14 @@
   align-items: center;
   justify-content: center;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   border-radius: 5px;
   margin-right: 10px;
   margin-bottom: 10px;
   cursor: pointer;
   text-align: center;
   box-sizing: border-box;
-  max-width: 150px;
+  max-width: 300px; /* increase max-width */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -25,12 +25,33 @@
   }
 
   .game-logo {
-    width: 40px;
+    width: 30px;
     margin-bottom: 5px;
   }
 
   .game-name {
-    font-size: 18px;
+    font-size: 16px;
     max-width: 100%;
+    text-align: center;
+    overflow: visible;
+    display: inline-block;
+    transform: scale(1);
+    transition: transform 0.3s ease-out;
   }
+
+  
+
+  @media only screen and (max-width: 320px) { /* adjust font size for small screens */
+    .game-name {
+      font-size: 12px;
+      transform: scale(0.8);
+    }
+    
+    .game-name:hover {
+      transform: scale(1); /* revert back to original size on hover */
+    }
+  }
+}
+.game-container:hover {
+  transform: scale(1.1); /* increase font size on hover */
 }

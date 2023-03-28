@@ -82,7 +82,7 @@ function SessionListItem({ session, userId }) {
       </div>
       <div className="details">
         <div className="preferences">
-          {sessionPlayers.length === 0 ? (<div className="players">{playerUsernames}</div>) : <></>}
+          {sessionPlayers.length === 0 ? (<div className="players"><p>Session is empty</p></div>) : <></>}
         <span>
           Players: {sessionPlayers.length}/{session.max_players}
         </span>
