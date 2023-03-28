@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS games CASCADE;
+DROP TABLE IF EXISTS sessions_users CASCADE;
 
 CREATE TABLE sessions_users (
     id SERIAL PRIMARY KEY,
