@@ -1,7 +1,7 @@
 .games-list-container {
   display: flex;
   flex-wrap: wrap; /* Allow the row to become two as the browser is resized */
-  
+  max-width: 80%;
   justify-content: center;
   align-items: center;
   border: 2px solid #333;

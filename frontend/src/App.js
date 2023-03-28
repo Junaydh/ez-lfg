@@ -27,7 +27,10 @@ function App() {
       <div className='games-list'>
         <GamesList selectedGameId={selectedGameId} onGameClick={handleGameClick} />
       </div>
-      <SessionForm />
+      <div className='create-session'> 
+        <SessionForm />
+      </div>
+      
       <SessionList gameCover ={selectedGameCover} sessions={sessions} userId={userId}/>  
     </main>
   );

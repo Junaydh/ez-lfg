@@ -8,8 +8,6 @@ function SessionList({ gameCover, sessions, userId }) {
 
   if(gameCover) {
     document.body.style.cssText+=`background-image:url(${gameCover})`;
-  } else {
-    document.body.style.cssText+=`background-color: #282c34;`;
   }
 
   return (
