@@ -1,23 +1,29 @@
+ 
+
 .game-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   border-radius: 5px;
   margin-right: 10px;
   margin-bottom: 10px;
   cursor: pointer;
   text-align: center;
   box-sizing: border-box;
-  max-width: 150px;
+  max-width: 300px; /* increase max-width */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
 
   &:hover {
-    background-color: #eee;
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    background-color: #427388;
+    box-shadow: 0 0 40px 40px #c1e9fa inset;
   }
 
   &.selected {
@@ -25,12 +31,33 @@
   }
 
   .game-logo {
-    width: 40px;
+    width: 30px;
     margin-bottom: 5px;
   }
 
   .game-name {
-    font-size: 18px;
+    font-size: 16px;
     max-width: 100%;
+    text-align: center;
+    overflow: visible;
+    display: inline-block;
+    transform: scale(1);
+    transition: transform 0.3s ease-out;
   }
+
+  
+
+  @media only screen and (max-width: 320px) { /* adjust font size for small screens */
+    .game-name {
+      font-size: 12px;
+      transform: scale(0.8);
+    }
+    
+    .game-name:hover {
+      transform: scale(1); /* revert back to original size on hover */
+    }
+  }
+}
+.game-container:hover {
+  transform: scale(1.1); /* increase font size on hover */
 }

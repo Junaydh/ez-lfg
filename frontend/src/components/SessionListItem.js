@@ -133,9 +133,10 @@ return (
       </div>
       <div className="details">
         <div className="preferences">
-          <span>
-            Players: {sessionPlayers.length}/{session.max_players}
-          </span>
+          {sessionPlayers.length === 0 ? (<div className="players"><p>Session is empty</p></div>) : <></>}
+        <span>
+          Players: {sessionPlayers.length}/{session.max_players}
+        </span>
           <span>Mic Required: {session.mic_required ? "Yes" : "No"}</span>
         </div>  
         {sessionPlayers.length === 0 ? (
