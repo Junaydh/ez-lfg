@@ -24,6 +24,10 @@
     .left {
       display: flex;
       justify-content: flex-start;
+
+      .nav-link:not(.home) {
+        margin-left: 1em;
+      }
     }
 
     .right {
@@ -45,8 +49,16 @@
     text-decoration: none;
     list-style: none;
     color: white;
+    padding-right: 1em;
+
+    &:hover {
+      color: purple;
+    }
   }
 
+  .home {
+    padding-right: 1em;
+  }
 
   img {
     max-height: 5em;

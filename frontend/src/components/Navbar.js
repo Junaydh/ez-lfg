@@ -11,33 +11,36 @@ export default function Navbar() {
   const publicUrl = process.env.PUBLIC_URL;
 
   return (
-    <nav className="navigation">
-      <img src={`${publicUrl}/EZLFG.png`} alt="logo" className="logo" />
-      <ul className="navigation-links">
-        <div className='parent-div'>
-          {user ? (
-              <div className='nav-links'>
-                <div className='left'>
-                  <Link to="/" className='nav-link'>Home</Link>
-                </div>
-                <div className='right'>
-                  <Link to="/profile" className='nav-link'>Profile</Link>
-                  <Logout />
-                </div>
-              </div>
-            ) : (
-              <div className='nav-links'>
-                <div className='left'>
-                  <Link to="/" className='nav-link home'>Home</Link>
-                </div>
-                <div className='right'>
-                  <Link to="/login" className='nav-link login'>Login</Link>
-                  <Link to="/register" className='nav-link register'>Register</Link>
-                </div>
-              </div>
-            )}
-        </div>
-      </ul>
-    </nav>
+<nav className="navigation">
+  <img src={`${publicUrl}/EZLFG.png`} alt="logo" className="logo" />
+  <ul className="navigation-links">
+    <div className='parent-div'>
+      {user ? (
+          <div className='nav-links'>
+            <div className='left'>
+              <Link to="/" className='nav-link'>Home</Link>
+              <a href="https://discord.gg/ARNRaNyN" className='nav-link' target="_blank" rel="noopener noreferrer" style={{paddingLeft: '1em'}}>Join the Discord</a>
+            </div>
+            <div className='right'>
+              <Link to="/profile" className='nav-link'>Profile</Link>
+              <Logout />
+            </div>
+          </div>
+        ) : (
+          <div className='nav-links'>
+            <div className='left'>
+              <Link to="/" className='nav-link home'>Home</Link>
+              <a href="https://discord.gg/ARNRaNyN" className='nav-link' style={{paddingLeft: '1em'}}>Join the Discord</a>
+            </div>
+            <div className='right'>
+              <Link to="/login" className='nav-link login'>Login</Link>
+              <Link to="/register" className='nav-link register'>Register</Link>
+            </div>
+          </div>
+        )}
+    </div>
+  </ul>
+</nav>
+
   );  
 }
