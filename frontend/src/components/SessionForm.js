@@ -26,10 +26,13 @@ const SessionForm = ({ setShowForm }) => {
   };
 
   const handleSubmit = async (event) => {
-
-    event.preventDefault();
-    await createSession(preferenceDetails, user.id);
-    setShowForm(false);
+    if(user) {
+      event.preventDefault();
+      await createSession(preferenceDetails, user.id);
+      setShowForm(false);
+    } else {
+      alert("Please sign in!")
+    }
   };
   
 
