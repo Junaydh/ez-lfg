@@ -82,10 +82,10 @@ const deleteUserFromSession = (userId, sessionId) => {
 
 //create session, auto-join host to that session, create discord channel for that session
 const createSession = (userId, sessionDetails) => {
-  const { game_id, mic_required, max_players, title, description, discord_link, platform } = sessionDetails;
-  const queryParams = [userId, game_id, mic_required, max_players, title, description, discord_link, platform];
-  const queryString = `INSERT INTO sessions (creator_id, game_id, mic_required, max_players, title, description, discord_link, platform)
-                        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+  const { game_id, mic_required, max_players, title, description, platform, region, competitive } = sessionDetails;
+  const queryParams = [userId, game_id, mic_required, max_players, title, description, platform, region, competitive];
+  const queryString = `INSERT INTO sessions (creator_id, game_id, mic_required, max_players, title, description, platform, region, competitive)
+                        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
                         RETURNING *`;
 
   let sessionId;
