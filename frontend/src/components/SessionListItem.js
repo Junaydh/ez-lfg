@@ -51,14 +51,14 @@ function SessionListItem({ session, userId }) {
   const playerUsernames = (
     <div className="player-details">
       {sessionPlayers.length === 0 ? (
-        <div>Session is empty</div>
+        <div className="empty-session">Session is empty</div>
       ) : (
-        <table>
+        <table className='player-list-table'>
           <thead>
             <tr>
               <th></th>
-              <th>Player</th>
-              <th>Discord</th>
+              <th className="--player">Player</th>
+              <th className="--discord">Discord</th>
               {isCreator && <th></th>}
             </tr>
           </thead>

@@ -16,8 +16,9 @@ import RegisterPage from './components/pages/RegisterPage';
 function App() {
   const [selectedGameId, setSelectedGameId] = useState(null);
   const [selectedGameCover, setSelectedGameCover] = useState(null);
-  const [newSessions, setNewSessions] = useState([]);
-  const sessions = useSessions(selectedGameId);
+  const [showForm, setShowForm] = useState(false);
+
+  const { sessions, fetchSessions } = useSessions(selectedGameId);
   const { user } = useContext(AuthContext);
 
   let userId;
@@ -29,12 +30,24 @@ function App() {
   }
 
   useEffect(() => {
-    setNewSessions(sessions);
-  }, [sessions]);
+    if(!showForm){
+      fetchSessions();
+    }
+  }, [showForm])
 
   const handleGameClick = (gameId, gameCover) => {
+    console.log(gameCover)
+
+    //rerite to look like lines 38-42
     setSelectedGameId(prevSelectedGameId => prevSelectedGameId === gameId ? null : gameId);
-    setSelectedGameCover(prevSelectedGameCover => prevSelectedGameCover ? null : gameCover);
+
+    if(gameCover === selectedGameCover) {
+      setSelectedGameCover(null);
+    } else {
+      setSelectedGameCover(gameCover);
+    }
+    
+
   };
 
   return (

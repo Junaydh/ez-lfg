@@ -35,14 +35,16 @@ const SessionForm = () => {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    await createSession(preferenceDetails);
-    window.location.reload();
+    if(user) {
+      event.preventDefault();
+      await createSession(preferenceDetails, user.id);
+      setShowForm(false);
+    } else {
+      alert("Please sign in!")
+    }
   };
   
-  const toggleForm = () => {
-    setShowForm(prevState => !prevState);
-  };
+
 
   return (
     <div className='form-div'>
