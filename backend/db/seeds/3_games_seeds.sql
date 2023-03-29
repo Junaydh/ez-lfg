@@ -1,3 +1,5 @@
+TRUNCATE TABLE games RESTART IDENTITY CASCADE;
+
 INSERT INTO games (name, game_logo, game_cover)
 VALUES ('Valorant', 'https://1000logos.net/wp-content/uploads/2022/09/Valorant-Emblem.png', 'https://m.media-amazon.com/images/M/MV5BODhkN2U1YzYtODQzZC00MTc5LTlmMmYtYjQ2ZGU2ZmM4YzJkXkEyXkFqcGdeQXVyMTE0MTc4MjU2._V1_FMjpg_UX1000_.jpg'),
 ('Fortnite', 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Fortnite_F_lettermark_logo.png', 'https://s2.gaming-cdn.com/images/products/2500/orig-fallback-v1/fortnite-pc-game-epic-games-cover.jpg?v=1645021449'),

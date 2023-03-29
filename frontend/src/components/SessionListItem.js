@@ -91,6 +91,10 @@ function SessionListItem({ session, userId }) {
     if (sessionPlayers.length >= session.max_players) {
       return; // Don't allow joining when session is full
     }
+    if (userId === null) {
+      alert("Please log in to join a session")
+      return; // Don't allow joining when user is not logged in
+    }
   
     if (joined) {
       // User is already in the session, render Leave Session button
