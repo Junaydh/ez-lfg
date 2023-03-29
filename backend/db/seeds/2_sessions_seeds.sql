@@ -1,4 +1,4 @@
-DELETE FROM sessions;
+TRUNCATE TABLE sessions RESTART IDENTITY CASCADE;
 
 INSERT INTO sessions (creator_id, game_id, region, title, description, max_players, current_players, mic_required, competitive, platform)
 VALUES (1, 1, 'NA', 'Valorant Ranked', 'Looking for players to grind Valorant Ranked with', 5, 3, TRUE, TRUE, 'PC'),

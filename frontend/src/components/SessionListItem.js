@@ -91,6 +91,10 @@ function SessionListItem({ session, userId }) {
     if (sessionPlayers.length >= session.max_players) {
       return; // Don't allow joining when session is full
     }
+    if (userId === null) {
+      alert("Please log in to join a session")
+      return; // Don't allow joining when user is not logged in
+    }
   
     if (joined) {
       // User is already in the session, render Leave Session button
@@ -129,9 +133,10 @@ return (
       </div>
       <div className="details">
         <div className="preferences">
-          <span>
-            Players: {sessionPlayers.length}/{session.max_players}
-          </span>
+          {sessionPlayers.length === 0 ? (<div className="players"><p>Session is empty</p></div>) : <></>}
+        <span>
+          Players: {sessionPlayers.length}/{session.max_players}
+        </span>
           <span>Mic Required: {session.mic_required ? "Yes" : "No"}</span>
           <span>Playstyle: {session.competitve ? "Competitive" : "Casual"} </span>
           <span>Region: {session.region}</span>

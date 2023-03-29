@@ -2,7 +2,6 @@ const db = require('../connection');
 const { client, ChannelType, PermissionsBitField } = require('../../discordBot.js');
 
 
-
 const findSession  = (session) => {
   const queryParams = [session];
   const queryString = `SELECT users.*
