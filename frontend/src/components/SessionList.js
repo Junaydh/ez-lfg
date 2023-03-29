@@ -6,11 +6,6 @@ function SessionList({ gameCover, sessions, userId }) {
     <SessionListItem key={session.id} session={session} userId={userId} />
   ));
 
-  
-  if(gameCover) {
-    document.body.style.cssText+=`background-image:url(${gameCover})`;
-  }
-
   return (
     <div className="sessions-container">
       {sessionCards}

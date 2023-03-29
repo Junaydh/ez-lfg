@@ -1,30 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './GamesList.scss';
-import Game from './Game';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./GamesList.scss";
+import Game from "./Game";
 
 const GamesList = ({ selectedGameId, onGameClick }) => {
   const [games, setGames] = useState([]);
-  const [searchText, setSearchText] = useState('');
-
-
-
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
-    axios.get('http://localhost:3001/games')
-      .then(response => {
+    axios
+      .get("http://localhost:3001/games")
+      .then((response) => {
         setGames(response.data);
       })
-      .catch(error => console.log('Error fetching games:', error));
+      .catch((error) => console.log("Error fetching games:", error));
   }, []);
 
   const handleGameClick = (gameId, gameCover) => {
     onGameClick(gameId, gameCover);
   };
 
-  const filteredGames = games.filter(game => game.name.toLowerCase().includes(searchText.toLowerCase()));
+  const filteredGames = games.filter((game) =>
+    game.name.toLowerCase().includes(searchText.toLowerCase())
+  );
 
-  
   return (
     <div className="games-list-container">
       <input
@@ -35,7 +34,7 @@ const GamesList = ({ selectedGameId, onGameClick }) => {
         className="search-bar"
       />
       <div className="games-container">
-        {filteredGames.map(game => (
+        {filteredGames.map((game) => (
           <Game
             key={game.id}
             logo={game.game_logo}

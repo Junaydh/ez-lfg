@@ -12,23 +12,29 @@ import React, { useState, useEffect } from 'react';
 function App() {
   const [selectedGameId, setSelectedGameId] = useState(null);
   const [selectedGameCover, setSelectedGameCover] = useState(null);
+  const [newSessions, setNewSessions] = useState([]);
   const sessions = useSessions(selectedGameId);
   const userId = 8;
 
+  useEffect(() => {
+    setNewSessions(sessions);
+    console.log("Sessions state: ", sessions)
+    console.log("newSessions state: ", newSessions)
+  }, [sessions]);
 
   const handleGameClick = (gameId, gameCover) => {
     setSelectedGameId(prevSelectedGameId => prevSelectedGameId === gameId ? null : gameId);
-    setSelectedGameCover(gameCover);
+    setSelectedGameCover(prevSelectedGameCover => prevSelectedGameCover ? null : gameCover);
   };
 
   return (
-    <main>
+    <main style={{backgroundImage: `url(${selectedGameCover})` }}>
       <Navbar />
       <div className='games-list'>
         <GamesList selectedGameId={selectedGameId} onGameClick={handleGameClick} />
       </div>
       <div className='create-session'> 
-        <SessionForm />
+        <SessionForm sessions={newSessions}/>
       </div>
       
       <SessionList gameCover ={selectedGameCover} sessions={sessions} userId={userId}/>  
