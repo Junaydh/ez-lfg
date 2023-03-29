@@ -9,5 +9,5 @@ VALUES ('Shroud', '$2a$10$L8NTUQ7tlC8dmMTnPltwIuxxN6XhfpCubHxUN.5cDnj.Lh0G41JGm'
 ('Summit1G', '$2a$10$L8NTUQ7tlC8dmMTnPltwIuxxN6XhfpCubHxUN.5cDnj.Lh0G41JGm', 'summit1g@twitch.tv', 'https://pbs.twimg.com/profile_images/1253450626500923393/k3QBhmHk_400x400.jpg', 'Summit1G#3579'),
 ('LionelMessi', '$2a$10$L8NTUQ7tlC8dmMTnPltwIuxxN6XhfpCubHxUN.5cDnj.Lh0G41JGm', 'messi@fcb.com', 'https://upload.wikimedia.org/wikipedia/commons/b/b4/Lionel-Messi-Argentina-2022-FIFA-World-Cup_%28cropped%29.jpg', 'Messi#1010'),
 ('LeBronJames', '$2a$10$L8NTUQ7tlC8dmMTnPltwIuxxN6XhfpCubHxUN.5cDnj.Lh0G41JGm', 'lebronjames@nba.com', 'https://upload.wikimedia.org/wikipedia/commons/b/bf/LeBron_James_-_51959723161_%28cropped%29.jpg', 'LeBronJames#2020'),
-('CristianoRonaldo', '$2a$10$L8NTUQ7tlC8dmMTnPltwIuxxN6XhfpCubHxUN.5cDnj.Lh0G41JGm', 'ronaldo@juventus.com', 'https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_2018.jpg', 'Ronaldo#3030');
+('CristianoRonaldo', '$2a$10$L8NTUQ7tlC8dmMTnPltwIuxxN6XhfpCubHxUN.5cDnj.Lh0G41JGm', 'ronaldo@juventus.com', 'https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_2018.jpg', 'Ronaldo#3030')
 ('AdamMarx', '$2a$10$L8NTUQ7tlC8dmMTnPltwIuxxN6XhfpCubHxUN.5cDnj.Lh0G41JGm', 'akoojax@gmail.com', 'https://kdvr.com/wp-content/uploads/sites/11/2012/04/frog.jpg', 'Achijax#6973');
