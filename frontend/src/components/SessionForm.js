@@ -19,13 +19,13 @@ const SessionForm = ({ setShowForm }) => {
 
     const [preferenceDetails, setPreferenceDetails] = useState({
       game_id: 1,
-      mic_required: false,
+      mic_required: true,
       max_players: 2,
       title: '',
       description: '',
       platform: 'PC',
       region: 'Global',
-      competitive: false 
+      competitive: true 
     });
 
     const handleInputChange = (event) => {
@@ -55,14 +55,13 @@ const SessionForm = ({ setShowForm }) => {
               Title:
               <input type="text" name="title" value={preferenceDetails.title} onChange={handleInputChange} />
             </label>
-            <br />
             <label>
               Description:
               <input type="text" name="description" value={preferenceDetails.description} onChange={handleInputChange} />
             </label>
-            <br />
             <label>
               Game:
+              <br />
               <select name="game_id" value={preferenceDetails.game_id} onChange={handleInputChange}>
                 <option value="">Select a game</option>
                 {gamesDropdown.map(game => (
@@ -70,9 +69,9 @@ const SessionForm = ({ setShowForm }) => {
                 ))}
               </select>
             </label>
-            <br />
             <label>
               Region:
+              <br />
               <select name="region" value={preferenceDetails.region} onChange={handleInputChange}>
                 <option value="NA">NA</option>
                 <option value="EUW">EUW</option>
@@ -80,21 +79,18 @@ const SessionForm = ({ setShowForm }) => {
                 <option value="LAN">LAN</option>
               </select>
             </label>
-            <br />
             <label>
               Max Players:
               <input type="number" name="max_players" value={preferenceDetails.max_players} onChange={handleInputChange} />
             </label>
-            <br />
             <label>
               Mic Required:
-              <input type="checkbox" name="mic_required" checked={preferenceDetails.mic_required} onChange={handleInputChange} />
+              <input type="checkbox" class="form-check-input" placeholder='click to require a microphone' name="mic_required" checked={preferenceDetails.mic_required} onChange={handleInputChange} />
             </label>
             <label>
-              Playstytle:
-              <input type="checkbox" name="competitive" checked={preferenceDetails.competitive} onChange={handleInputChange} />
+              Competitive Playstytle:
+              <input type="checkbox" name="competitive" class="form-check-input" checked={preferenceDetails.competitive} onChange={handleInputChange} />
             </label>
-            <br />
             <button type="submit">Create Session</button>
           </form>
       </div>

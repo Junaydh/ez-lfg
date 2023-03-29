@@ -81,4 +81,13 @@
   &:hover {
     background-color: #0069d9;
   }
+
+  .region-label {
+    background-color: blue;
+  }
+
+  input[type="checkbox"] {
+    width: 2em;
+    height: 1em;
+  }
 }
