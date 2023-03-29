@@ -1,9 +1,11 @@
 import './SessionForm.scss';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { createSession } from '../hooks/createSession';
+import { AuthContext } from '../contexts/auth';
 
-const SessionForm = () => {
-  const [showForm, setShowForm] = useState(false);
+const SessionForm = ({ setShowForm }) => {
+
+    const { user } = useContext(AuthContext);
 
   const [preferenceDetails, setPreferenceDetails] = useState({
     game_id: 1,
@@ -24,19 +26,17 @@ const SessionForm = () => {
   };
 
   const handleSubmit = async (event) => {
+
     event.preventDefault();
-    await createSession(preferenceDetails);
-    window.location.reload();
+    await createSession(preferenceDetails, user.id);
+    setShowForm(false);
   };
   
-  const toggleForm = () => {
-    setShowForm(prevState => !prevState);
-  };
+
 
   return (
     <div className='form-div'>
-     <button className="session-form-button" onClick={toggleForm}>Create a new session</button>
-      {showForm && (
+      {(
         <form className='session-form' onSubmit={handleSubmit}>
           <label>
             Title:

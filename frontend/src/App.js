@@ -13,8 +13,9 @@ import { AuthContext } from './contexts/auth';
 function App() {
   const [selectedGameId, setSelectedGameId] = useState(null);
   const [selectedGameCover, setSelectedGameCover] = useState(null);
-  const [newSessions, setNewSessions] = useState([]);
-  const sessions = useSessions(selectedGameId);
+  const [showForm, setShowForm] = useState(false);
+
+  const { sessions, fetchSessions } = useSessions(selectedGameId);
   const { user } = useContext(AuthContext);
 
   let userId;
@@ -26,22 +27,35 @@ function App() {
   }
 
   useEffect(() => {
-    setNewSessions(sessions);
-  }, [sessions]);
+    if(!showForm){
+      fetchSessions();
+    }
+  }, [showForm])
 
   const handleGameClick = (gameId, gameCover) => {
+    console.log(gameCover)
+
+    //rerite to look like lines 38-42
     setSelectedGameId(prevSelectedGameId => prevSelectedGameId === gameId ? null : gameId);
-    setSelectedGameCover(prevSelectedGameCover => prevSelectedGameCover ? null : gameCover);
+
+    if(gameCover === selectedGameCover) {
+      setSelectedGameCover(null);
+    } else {
+      setSelectedGameCover(gameCover);
+    }
+    
+
   };
 
   return (
     <main style={{backgroundImage: `url(${selectedGameCover})` }}>
       <Navbar />
       <div className='games-list'>
-        <GamesList selectedGameId={selectedGameId} onGameClick={handleGameClick} />
+        <GamesList selectedGameId={selectedGameId} onGameClick={(handleGameClick)} />
       </div>
       <div className='create-session'> 
-        <SessionForm sessions={newSessions}/>
+      <button className="session-form-button" onClick={() => setShowForm(!showForm)}>Create a new session</button>
+        {showForm && <SessionForm setShowForm={setShowForm}/>}
       </div>
       
       <SessionList gameCover ={selectedGameCover} sessions={sessions} userId={userId}/>  

@@ -4,7 +4,7 @@ import axios from 'axios';
 export function useSessions(gameId) {
   const [sessions, setSessions] = useState([]);
 
-  useEffect(() => {
+  const fetchSessions = () => {
     let url = 'http://localhost:3001/sessions';
     if (gameId) {
       url = `http://localhost:3001/games/${gameId}/sessions`;
@@ -25,8 +25,12 @@ export function useSessions(gameId) {
       .catch(err => {
         console.error(err.message);
       });
+  }
+
+  useEffect(() => {
+    fetchSessions();
   }, [gameId]);
 
-  return sessions;
+  return {sessions, fetchSessions};
 }
 
