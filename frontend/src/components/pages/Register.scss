@@ -1,3 +1,25 @@
 .user-form {
   padding: 0 1em;
+  width : 30%;
+  margin: 0 auto;
+  margin-top: 7em;
+  margin-bottom: 5em;
+  border-radius: 1em;
+  background-color: #bebebe;
+  padding: 1.5em 3em;
+}
+
+.user-form input[type="text"] {
+  
+
+  &:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+}
+
+h1 {
+  display: flex;
+  padding: 0.5em;
+  justify-content: center;
 }
