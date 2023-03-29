@@ -68,8 +68,8 @@ router.delete('/session/:sessionId/users/:userId', async (req, res) => {
 // create session
 router.post('/create/host/:userId', (req, res) => {
   const { userId } = req.params;
-  const { game_id, region, title, description, max_players, mic_required, discord_link, platform } = req.body;
-  const sessionDetails = { game_id, mic_required, max_players, title, description, discord_link, platform };
+  const { game_id, title, description, max_players, mic_required, discord_link, platform, region, competitive } = req.body;
+  const sessionDetails = { game_id, mic_required, max_players, title, description, discord_link, platform, region, competitive };
   console.log(sessionDetails);
   sessionSelector.createSession(userId, sessionDetails)
   .then(result => {
