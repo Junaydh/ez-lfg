@@ -1,19 +1,22 @@
 import './SessionForm.scss';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { createSession } from '../hooks/createSession';
+import { AuthContext } from '../contexts/auth';
 import axios from 'axios';
 
-const SessionForm = () => {
-  const [showForm, setShowForm] = useState(false);
-  const [gamesDropdown, setGamesDropdown] = useState([]);
+const SessionForm = ({ setShowForm }) => {
 
-  useEffect(() => {
-    axios.get('http://localhost:3001/games')
-      .then(response => {
-        setGamesDropdown(response.data);
-      })
-      .catch(error => console.log('Error fetching games:', error));
-  }, []);
+    const { user } = useContext(AuthContext);
+    const [gamesDropdown, setGamesDropdown] = useState([]);
+
+    useEffect(() => {
+      axios.get('http://localhost:3001/games')
+        .then(response => {
+          setGamesDropdown(response.data);
+        })
+        .catch(error => console.log('Error fetching games:', error));
+    }, []);
+  
 
   const [preferenceDetails, setPreferenceDetails] = useState({
     game_id: 1,
@@ -21,9 +24,8 @@ const SessionForm = () => {
     max_players: 2,
     title: '',
     description: '',
-    platform: 'PC',
-    region: 'Global',
-    competitive: false 
+    discord_link: '',
+    platform: 'PC'
   });
 
   const handleInputChange = (event) => {
@@ -48,58 +50,57 @@ const SessionForm = () => {
 
   return (
     <div className='form-div'>
-      <button className="session-form-button" onClick={toggleForm}>Create a new session</button>
-      {showForm && (
-        <form className='session-form' onSubmit={handleSubmit}>
-          <label>
-            Title:
-            <input type="text" name="title" value={preferenceDetails.title} onChange={handleInputChange} />
-          </label>
-          <br />
-          <label>
-            Description:
-            <input type="text" name="description" value={preferenceDetails.description} onChange={handleInputChange} />
-          </label>
-          <br />
-          <label>
-            Game:
-            <select name="game_id" value={preferenceDetails.game_id} onChange={handleInputChange}>
-              <option value="">Select a game</option>
-              {gamesDropdown.map(game => (
-                <option key={game.id} value={game.id}>{game.name}</option>
-              ))}
-            </select>
-          </label>
-          <br />
-          <label>
-            Region:
-            <select name="region" value={preferenceDetails.region} onChange={handleInputChange}>
-              <option value="NA">NA</option>
-              <option value="EUW">EUW</option>
-              <option value="SEA">SEA</option>
-              <option value="LAN">LAN</option>
-            </select>
-          </label>
-          <br />
-          <label>
-            Max Players:
-            <input type="number" name="max_players" value={preferenceDetails.max_players} onChange={handleInputChange} />
-          </label>
-          <br />
-          <label>
-            Mic Required:
-            <input type="checkbox" name="mic_required" checked={preferenceDetails.mic_required} onChange={handleInputChange} />
-          </label>
-          <label>
-            Playstytle:
-            <input type="checkbox" name="competitive" checked={preferenceDetails.competitive} onChange={handleInputChange} />
-          </label>
-          <br />
-          <button type="submit">Create Session</button>
-        </form>
+      {(
+       <form className='session-form' onSubmit={handleSubmit}>
+       <label>
+         Title:
+         <input type="text" name="title" value={preferenceDetails.title} onChange={handleInputChange} />
+       </label>
+       <br />
+       <label>
+         Description:
+         <input type="text" name="description" value={preferenceDetails.description} onChange={handleInputChange} />
+       </label>
+       <br />
+       <label>
+         Game:
+         <select name="game_id" value={preferenceDetails.game_id} onChange={handleInputChange}>
+           <option value="">Select a game</option>
+           {gamesDropdown.map(game => (
+             <option key={game.id} value={game.id}>{game.name}</option>
+           ))}
+         </select>
+       </label>
+       <br />
+       <label>
+         Region:
+         <select name="region" value={preferenceDetails.region} onChange={handleInputChange}>
+           <option value="NA">NA</option>
+           <option value="EUW">EUW</option>
+           <option value="SEA">SEA</option>
+           <option value="LAN">LAN</option>
+         </select>
+       </label>
+       <br />
+       <label>
+         Max Players:
+         <input type="number" name="max_players" value={preferenceDetails.max_players} onChange={handleInputChange} />
+       </label>
+       <br />
+       <label>
+         Mic Required:
+         <input type="checkbox" name="mic_required" checked={preferenceDetails.mic_required} onChange={handleInputChange} />
+       </label>
+       <label>
+         Playstytle:
+         <input type="checkbox" name="competitive" checked={preferenceDetails.competitive} onChange={handleInputChange} />
+       </label>
+       <br />
+       <button type="submit">Create Session</button>
+     </form>
       )}
     </div>
-  );  
+  );
 };
 
 export default SessionForm;

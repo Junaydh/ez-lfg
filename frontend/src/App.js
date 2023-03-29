@@ -61,7 +61,8 @@ function App() {
                 <GamesList selectedGameId={selectedGameId} onGameClick={handleGameClick} />
               </div>
               <div className='create-session'> 
-                <SessionForm sessions={newSessions}/>
+              <button className="session-form-button" onClick={() => setShowForm(!showForm)}>Create a new session</button>
+                {showForm && <SessionForm setShowForm={setShowForm}/>}
               </div>
               
               <SessionList gameCover ={selectedGameCover} sessions={sessions} userId={userId}/> 
