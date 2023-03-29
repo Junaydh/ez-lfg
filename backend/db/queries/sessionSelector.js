@@ -1,5 +1,5 @@
 const db = require('../connection');
-const { client, ChannelType, PermissionsBitField } = require('/home/labber/final/ez-lfg/backend/discordBot.js');
+const { client, ChannelType, PermissionsBitField } = require('../../discordBot.js');
 
 
 
