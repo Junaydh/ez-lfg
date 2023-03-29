@@ -1,5 +1,5 @@
 const db = require('../connection');
-const { client, ChannelType, PermissionsBitField } = require('../../discordBot.js');
+const { client, ChannelType, PermissionsBitField } = require('../../discordBot');
 
 
 
