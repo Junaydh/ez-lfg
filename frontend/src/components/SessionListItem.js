@@ -139,6 +139,9 @@ return (
           Players: {sessionPlayers.length}/{session.max_players}
         </span>
           <span>Mic Required: {session.mic_required ? "Yes" : "No"}</span>
+          <span>Playstyle: {session.competitve ? "Competitive" : "Casual"} </span>
+          <span>Region: {session.region}</span>
+          <span>Platform: {session.platform}</span>
         </div>  
         {sessionPlayers.length === 0 ? (
             <div className="session-empty">Session is empty</div>

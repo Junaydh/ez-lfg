@@ -4,6 +4,6 @@ CREATE TABLE users (
     username VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    profile_pic TEXT DEFAULT 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973461_960_720.png',
+    profile_pic TEXT DEFAULT 'https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png',
     discord_tag VARCHAR(255) NOT NULL
 );

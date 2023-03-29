@@ -18,6 +18,20 @@
   font-weight: bold;
 }
 
+.session-form select {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+}
+
+
 
 
 
@@ -53,5 +67,14 @@
 
   &:hover {
     background-color: #0069d9;
+  }
+
+  .region-label {
+    background-color: blue;
+  }
+
+  input[type="checkbox"] {
+    width: 2em;
+    height: 1em;
   }
 }

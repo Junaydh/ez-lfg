@@ -9,6 +9,9 @@ import SessionList from './components/SessionList';
 import SessionForm from './components/SessionForm';
 import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from './contexts/auth';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LoginPage from './components/pages/LoginPage';
+import RegisterPage from './components/pages/RegisterPage';
 
 function App() {
   const [selectedGameId, setSelectedGameId] = useState(null);
@@ -48,20 +51,30 @@ function App() {
   };
 
   return (
-    <main style={{backgroundImage: `url(${selectedGameCover})` }}>
-      <Navbar />
-      <div className='games-list'>
-        <GamesList selectedGameId={selectedGameId} onGameClick={(handleGameClick)} />
-      </div>
-      <div className='create-session'> 
+    <Router>
+      <main style={{backgroundImage: `url(${selectedGameCover})` }}>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={
+            <div>
+              <div className='games-list'>
+                <GamesList selectedGameId={selectedGameId} onGameClick={handleGameClick} />
+              </div>
+              <div className='create-session'> 
       
       {!showForm && <button className="session-form-button" onClick={() => setShowForm(!showForm)}>Create a new session</button>}
       {showForm && <button className="session-form-button-cancel" onClick={() => setShowForm(!showForm)}>Canel</button>}
         {showForm && <SessionForm setShowForm={setShowForm}/>}
       </div>
-      
-      <SessionList gameCover ={selectedGameCover} sessions={sessions} userId={userId}/>  
-    </main>
+              
+              <SessionList gameCover ={selectedGameCover} sessions={sessions} userId={userId}/> 
+            </div>
+          } />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes>
+      </main>
+    </Router>
   );
 }
 
