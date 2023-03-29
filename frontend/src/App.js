@@ -7,7 +7,7 @@ import UserList from './components/UserList';
 import { useSessions } from './hooks/useSessions';
 import SessionList from './components/SessionList';
 import SessionForm from './components/SessionForm';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from './contexts/auth';
 
 function App() {
