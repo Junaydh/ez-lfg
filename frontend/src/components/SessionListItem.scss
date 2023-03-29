@@ -1,12 +1,33 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:300");
+
 .session-card {
   width: 100%;
   max-width: 600px;
   margin: 1em auto;
   padding: 1.5em 3em;
   border-radius: 1em;
-  background-color: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   
+    /* background image */
+    background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgNCAgICAgHBwgHBwoHBwcHBw8ICQcKFREWFhUREx8YHSggGBolJx8TITEhMSkrLi4uFx8zODMtNygtLjcBCgoKDQ0NDg0PDysZFRk3LSsrKystKys3NzcrKysrLTc3KystKysrKysrKysrKysrKysrKysrKy0rKysrKysrK//AABEIAJABXQMBIgACEQEDEQH/xAAZAAADAQEBAAAAAAAAAAAAAAAAAQIDBAf/xAAcEAEBAQEBAQEBAQAAAAAAAAAAAQIRA0EhEjH/xAAXAQEBAQEAAAAAAAAAAAAAAAAAAQID/8QAGREBAQEBAQEAAAAAAAAAAAAAAAERMQIh/9oADAMBAAIRAxEAPwD3EAAAAAAAAAAAAAAAAAAACAwRAfR1Npf0uJrQimjRR0uglD6Oo6OmI06bOVUpiqBSmgAAAAAAAAAAAAAAAAAAAAAAAAAAAAIDIul0FhPT6BkCtAWlam1Nq41F9PrL+jmhcXU0+lVjFietM7Zaie8azXPbHSVRj060Y43LrOkuxFagOnKil1cG0qpWM0uVmwahMpsqYAAAAAAAAAAAAAAAAAAAgA6aaUq4iiphFSXTqa0DpypHTEX0qUp9MVFRWliNRTU9L+hUUxuVrNLlc/VTSY1jas9RU0Ksrn68su2N/L1l/Ky1ll2yt5rhd813J1Gfj6y/lbOeY6SysbEVtqM9RqVUyqmmdErWI6JpcrnzppnTFitpTRKqVhTAAAAAAAAAAAAACBAZEOimmq6SomVcqLCl4uazxpU1UvRYjTOpaWIsaiF1UqB1RoVhSq6gy1Geo6LEaysquel1prLOxpqel500zpzqzpmxvrdGsnnSyXHP15c3LL+Onx9e/lRrLKyyt/PUcb5vm7HdYjWUePr8rauXG5dYayzsdFjPWW5VZxeamwoqN81pK581pmsWK2lNEqowpgAAAAAAAAACJRAmkqpqg6fUgVVRqKlCoiXjWXrOwpeLms8a2IsXL0WMtMbEtbEWNSonqpU2BRrKLESrlQRrLPWHQm5JRyXKXTrDLWW9alTmtc6Y8VKljWt06yWdNInGbGFllbeXp8payzss/wAa65Zn2OtNiPL0+Vq58bl1jrKLG9iLlqUZReaVhKNc1pKwzWmazYNZTRKqMKYAAAAAAAAAAisUQIsS0sTY0JVC4ANNigCJbGsvUWFLwv1GlibFSixFZWJ41sTY1KjNUo4SjSVTOVcrNBYz1lsVhqubWGdjq1lnrDcoxlaZ0m5KBreFYnOmkTgys4189/KViLOL1nHSmxPnv5WjHGmVyixtYmxZUZKlFhNDSVcrGVcrNg1holVKwpgAAAAAAAAAAmxQBFhcXwrFEg+EoZWHDRES8XKVhRVXYmxUo4gysLjSwrFlEHBYFRUqkRUZU+JuVGDDWUXLosTctSo515qrlPGhcFhRcZGVjTz38p3KLk6N02FjS2eKysTY1sKxZRlw4rhcXUVFxnFRKq4aYbIYAAAAAAAAAAAAC4XFEBAwoE2KAJipSsAHwrFQIIsLi7CsXRBwyUVDSaBjgNBFiblqVi6MuHFWFxdQ4LAaDOxeadieKLLglUyqOFxfC4uiOHD4FBFRJoKBGgAAAAAAAAAAAAAAAAAAALhgCMEBkYAuFxRAQMKAyCBgAAXDAJ4ZgCHDAJ4cplwDBGBFxQBIMADIwf/Z');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    
+    /* animation */
+    animation-name: scroll-bg;
+    animation-duration: 40s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  
+    
+
+    
+
+
+
+
+
   h2 {
   font-size: 2.5rem;
   margin-bottom: 0.5em;
@@ -84,6 +105,17 @@
     }
   }
 
+}
+
+/* keyframes for the animation */
+@keyframes scroll-bg {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 0 -1000px;
+  }
 }
 
 .kick-button {
