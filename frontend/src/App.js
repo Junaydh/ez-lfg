@@ -60,12 +60,13 @@ function App() {
               <div className='games-list'>
                 <GamesList selectedGameId={selectedGameId} onGameClick={handleGameClick} />
               </div>
+
               <div className='create-session'> 
-      
-      {!showForm && <button className="session-form-button" onClick={() => setShowForm(!showForm)}>Create a new session</button>}
-      {showForm && <button className="session-form-button-cancel" onClick={() => setShowForm(!showForm)}>Canel</button>}
-        {showForm && <SessionForm setShowForm={setShowForm}/>}
-      </div>
+              {!showForm && <button className="session-form-button" onClick={() => setShowForm(!showForm)}>Create a new session</button>}
+              {showForm && <button className="session-form-button-cancel" onClick={() => setShowForm(!showForm)}>Cancel</button>}
+              </div>
+                {showForm && <SessionForm setShowForm={setShowForm}/>}
+              
               
               <SessionList gameCover ={selectedGameCover} sessions={sessions} userId={userId}/> 
             </div>

@@ -77,3 +77,11 @@
 .session-form-button-cancel:hover {
   background-color: rgb(255, 180, 180);
 }
+
+.create-session {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 1em 0;
+}
