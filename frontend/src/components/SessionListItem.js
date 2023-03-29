@@ -124,6 +124,7 @@ return (
       <h2>{session.title}</h2>
       <div className='host-description'>
         <div className='host-details'>
+          <h3>Session #{session.id}</h3>
           <h3>Host: {session.creator.username}</h3>
           <h5>
             <i className="fab fa-discord"></i> {session.creator.discord_tag}
@@ -133,7 +134,7 @@ return (
       </div>
       <div className="details">
         <div className="preferences">
-          {sessionPlayers.length === 0 ? (<div className="players"><p>Session is empty</p></div>) : <></>}
+          {/*sessionPlayers.length === 0 ? (<div className="players"><p>Session is empty</p></div>) : <></>*/}
         <span>
           Players: {sessionPlayers.length}/{session.max_players}
         </span>
