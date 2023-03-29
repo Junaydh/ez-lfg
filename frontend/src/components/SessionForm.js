@@ -1,9 +1,19 @@
 import './SessionForm.scss';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createSession } from '../hooks/createSession';
+import axios from 'axios';
 
 const SessionForm = () => {
   const [showForm, setShowForm] = useState(false);
+  const [gamesDropdown, setGamesDropdown] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/games')
+      .then(response => {
+        setGamesDropdown(response.data);
+      })
+      .catch(error => console.log('Error fetching games:', error));
+  }, []);
 
   const [preferenceDetails, setPreferenceDetails] = useState({
     game_id: 1,
@@ -11,8 +21,9 @@ const SessionForm = () => {
     max_players: 2,
     title: '',
     description: '',
-    discord_link: '',
-    platform: 'PC'
+    platform: 'PC',
+    region: 'Global',
+    competitive: false 
   });
 
   const handleInputChange = (event) => {
@@ -35,7 +46,7 @@ const SessionForm = () => {
 
   return (
     <div className='form-div'>
-     <button className="session-form-button" onClick={toggleForm}>Create a new session</button>
+      <button className="session-form-button" onClick={toggleForm}>Create a new session</button>
       {showForm && (
         <form className='session-form' onSubmit={handleSubmit}>
           <label>
@@ -49,12 +60,23 @@ const SessionForm = () => {
           </label>
           <br />
           <label>
-            Game ID:
-            <input type="number" name="game_id" value={preferenceDetails.game_id} onChange={handleInputChange} />
+            Game:
+            <select name="game_id" value={preferenceDetails.game_id} onChange={handleInputChange}>
+              <option value="">Select a game</option>
+              {gamesDropdown.map(game => (
+                <option key={game.id} value={game.id}>{game.name}</option>
+              ))}
+            </select>
           </label>
+          <br />
           <label>
-            Mic Required:
-            <input type="checkbox" name="mic_required" checked={preferenceDetails.mic_required} onChange={handleInputChange} />
+            Region:
+            <select name="region" value={preferenceDetails.region} onChange={handleInputChange}>
+              <option value="NA">NA</option>
+              <option value="EUW">EUW</option>
+              <option value="SEA">SEA</option>
+              <option value="LAN">LAN</option>
+            </select>
           </label>
           <br />
           <label>
@@ -63,15 +85,19 @@ const SessionForm = () => {
           </label>
           <br />
           <label>
-            Discord Link:
-            <input type="text" name="discord_link" value={preferenceDetails.discord_link} onChange={handleInputChange} />
+            Mic Required:
+            <input type="checkbox" name="mic_required" checked={preferenceDetails.mic_required} onChange={handleInputChange} />
+          </label>
+          <label>
+            Playstytle:
+            <input type="checkbox" name="competitive" checked={preferenceDetails.competitive} onChange={handleInputChange} />
           </label>
           <br />
           <button type="submit">Create Session</button>
         </form>
       )}
     </div>
-  );
+  );  
 };
 
 export default SessionForm;
