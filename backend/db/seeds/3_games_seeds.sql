@@ -6,7 +6,12 @@ VALUES ('Valorant', 'https://1000logos.net/wp-content/uploads/2022/09/Valorant-E
 ('League of Legends', 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/LoL_icon.svg/2048px-LoL_icon.svg.png', 'https://thumbnails.pcgamingwiki.com/4/40/League_of_Legends_-_cover.jpg/300px-League_of_Legends_-_cover.jpg'),
 ('Overwatch', 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Overwatch_circle_logo.svg/2048px-Overwatch_circle_logo.svg.png', 'https://upload.wikimedia.org/wikipedia/en/5/51/Overwatch_cover_art.jpg'),
 ('Apex Legends', 'https://logos-world.net/wp-content/uploads/2020/11/Apex-Legends-Emblem.png', 'https://cdn.mobygames.com/covers/7477029-apex-legends-playstation-4-front-cover.jpg'),
+<<<<<<< HEAD
 ('Minecraft', 'https://cdn.icon-icons.com/icons2/2699/PNG/512/minecraft_logo_icon_168974.png', 'https://upload.wikimedia.org/wikinews/en/7/7a/Minecraft_game_cover.jpeg');
+=======
+('Minecraft', 'https://cdn.icon-icons.com/icons2/2699/PNG/512/minecraft_logo_icon_168974.png', 'https://upload.wikimedia.org/wikinews/en/7/7a/Minecraft_game_cover.jpeg'),
+('Rocket League', 'https://scontent.fyvr1-1.fna.fbcdn.net/v/t1.6435-9/119288136_2839729106248534_2756344002394019023_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=e3f864&_nc_ohc=JauMqM3kli8AX9Nsg7_&_nc_ht=scontent.fyvr1-1.fna&oh=00_AfBTjGJSw-6T-P3dl_q5ouNP6ZP4c-J8SDSuHWrTErw9LQ&oe=644BCF4F')
+>>>>>>> 09ea7e583be1131ae64617f07ab8d313c2929e7c
 -- ('Call of Duty: Modern Warfare', 'https://upload.wikimedia.org/wikipedia/en/thumb/6/67/Modern_Warfare_cover_art.jpg/220px-Modern_Warfare_cover_art.jpg', 'https://cdn.mos.cms.futurecdn.net/Pz6fj8WsoSdhSvD9X9GRfS.jpg'),
 -- ('Rainbow Six Siege', 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Rainbow_Six_Siege_logo.png/240px-Rainbow_Six_Siege_logo.png', 'https://assets1.ignimgs.com/thumbs/userUploaded/2019/11/4/tom-clancys-rainbow-six-siege-box-art-ps4--1572907334849_1280w.jpg'),
 -- ('World of Warcraft', 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/WoW_icon.svg/240px-WoW_icon.svg.png', 'https://vignette.wikia.nocookie.net/wowwiki/images/8/83/WoW_Box_Art1.jpg/revision/latest?cb=20090205032123'),
