@@ -37,6 +37,7 @@ const Register = ({ setShowRegistration, setError }) => {
       updateUser(user);
       setShowRegistration(false)
     } catch (error) {
+      console.error(error)
       setError('Username already in use. Please try again.')
       setTimeout(() => {
         setError('');

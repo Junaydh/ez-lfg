@@ -5,6 +5,7 @@ import Logout from './Logout';
 import Register from './Register';
 import { AuthContext } from '../contexts/auth';
 
+
 function Navbar() {
   const [showRegistration, setShowRegistration] = useState(false);
   const [error, setError] = useState('');
