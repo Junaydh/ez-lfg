@@ -31,16 +31,14 @@ const Login = ({setError}) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        Username:
-        <input type="text" value={username} onChange={handleUsernameChange} />
-      </label>
-      <br />
-      <label>
-        Password:
-        <input type="password" value={password} onChange={handlePasswordChange} />
-      </label>
-      <br />
+      <div class="form-floating mb-3">
+        <input type="username" className="form-control" id="floatingInput" placeholder='Username' value={username} onChange={handleUsernameChange} />
+        <label for="floatingInput">Username</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" className="form-control" id="floatingPassword" placeholder="Password" value={password} onChange={handlePasswordChange}/>
+        <label for="floatingPassword">Password</label>
+      </div>
       <button type="submit">Login</button>
     </form>
   );
