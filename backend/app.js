@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -13,10 +15,14 @@ const bcrypt = require('bcrypt');
 
 initializePassport(passport);
 
-const indexRouter = require('./routes/index');
-const gamesRouter = require('./routes/gamesApi');
+const { client } = require('./discordBot');
+
 const usersRouter = require('./routes/users');
 const sessionsRouter = require('./routes/sessionsApi');
+const indexRouter = require('./routes/index');
+const gamesRouter = require('./routes/gamesApi');
+
+client.login(process.env.TOKEN);
 
 const app = express();
 

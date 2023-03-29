@@ -23,11 +23,12 @@ const SessionForm = () => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    createSession(preferenceDetails);
+    await createSession(preferenceDetails);
+    window.location.reload();
   };
-
+  
   const toggleForm = () => {
     setShowForm(prevState => !prevState);
   };
