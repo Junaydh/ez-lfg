@@ -9,4 +9,5 @@ VALUES ('Shroud', 'password', 'shroudyrowdy@pro.com', 'https://upload.wikimedia.
 ('Summit1G', 'password', 'summit1g@twitch.tv', 'https://pbs.twimg.com/profile_images/1253450626500923393/k3QBhmHk_400x400.jpg', 'Summit1G#3579'),
 ('LionelMessi', 'password', 'messi@fcb.com', 'https://upload.wikimedia.org/wikipedia/commons/b/b4/Lionel-Messi-Argentina-2022-FIFA-World-Cup_%28cropped%29.jpg', 'Messi#1010'),
 ('LeBronJames', 'password', 'lebronjames@nba.com', 'https://upload.wikimedia.org/wikipedia/commons/b/bf/LeBron_James_-_51959723161_%28cropped%29.jpg', 'LeBronJames#2020'),
-('CristianoRonaldo', 'password', 'ronaldo@juventus.com', 'https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_2018.jpg', 'Ronaldo#3030');
+('CristianoRonaldo', 'password', 'ronaldo@juventus.com', 'https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_2018.jpg', 'Ronaldo#3030'),
+('AdamMarx', 'password', 'akoojax@gmail.com', 'https://kdvr.com/wp-content/uploads/sites/11/2012/04/frog.jpg', 'Achijax#6973');

@@ -1,4 +1,7 @@
 const db = require('../connection');
+const { client, ChannelType, PermissionsBitField } = require('/home/labber/final/ez-lfg/backend/discordBot.js');
+
+
 
 const findSession  = (session) => {
   const queryParams = [session];
@@ -16,6 +19,7 @@ const findSession  = (session) => {
     console.error(err.message);
   });
 }
+
 const addUserToSession = (userId, sessionId) => {
   const queryParams = [userId, sessionId];
   const checkUserQuery = 'SELECT * FROM sessions_users WHERE user_id = $1 AND session_id = $2';
@@ -76,6 +80,7 @@ const deleteUserFromSession = (userId, sessionId) => {
     });
 }
 
+//create session, auto-join host to that session, create discord channel for that session
 const createSession = (userId, sessionDetails) => {
   const { game_id, mic_required, max_players, title, description, discord_link, platform } = sessionDetails;
   const queryParams = [userId, game_id, mic_required, max_players, title, description, discord_link, platform];
@@ -83,16 +88,67 @@ const createSession = (userId, sessionDetails) => {
                         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
                         RETURNING *`;
 
-  return db
-    .query(queryString, queryParams)
-    .then(data => {
-      return data.rows[0];
+  let sessionId;
+
+  return db.query(queryString, queryParams)
+    .then(sessionResult => {
+      sessionId = sessionResult.rows[0].id;
+      const sessionUserId = sessionResult.rows[0].creator_id;
+      const sessionUserParams = [sessionId, sessionUserId];
+
+      const sessionUserQuery = `INSERT INTO sessions_users (session_id, user_id)
+                                VALUES ($1, $2)`;
+
+      return db.query(sessionUserQuery, sessionUserParams)
+        .then(() => {
+          const guild = client.guilds.cache.get(process.env.DISCORD_GUILD_ID);
+          const channelName = `session-${sessionId}`;
+
+          // Get the list of users that are part of this session
+          const getUsersQuery = `SELECT discord_tag FROM sessions_users JOIN users ON sessions_users.user_id = users.id WHERE session_id = $1`;
+          const getUsersParams = [sessionId];
+
+          return db.query(getUsersQuery, getUsersParams)
+            .then(usersResult => {
+              // const userIds = usersResult.rows.map(row => row.discord_tag);
+              const overwrites = [
+                {
+                  id: guild.roles.everyone.id,
+                  allow: [PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.ReadMessageHistory],
+                },
+              ];
+
+              // // Add permissions for each user in the session
+              // for (const userId of userIds) {
+              //   const user = guild.members.cache.find(member => member.user.tag === userId);
+              //   if (user) {
+              //     overwrites.push({
+              //       id: user.id,
+              //       allow: [PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.ReadMessageHistory],
+              //     });
+              //   }
+              // }
+
+              return guild.channels.create({
+                type: ChannelType.GuildText,
+                name: channelName,
+                permissionOverwrites: overwrites,
+              })
+                .then(channel => {
+                  return {
+                    session: sessionResult.rows[0],
+                    channel_link: channel.toString()
+                  };
+                })
+            });
+        })
     })
     .catch(err => {
       console.error(err.message);
       throw err;
     });
 };
+
 
 
 const kickPlayer = (sessionId, userId) => {
