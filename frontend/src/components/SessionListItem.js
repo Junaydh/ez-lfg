@@ -121,10 +121,13 @@ function SessionListItem({ session, userId }) {
 
 return (
       <div key={session.id} className="session-card">
-      <h2>{session.title}</h2>
+        <div className="session-header">
+          <h2>{session.title}</h2>
+          <h3>Session #{session.id}</h3>
+        </div>
       <div className='host-description'>
         <div className='host-details'>
-          <h3>Session #{session.id}</h3>
+        
           <h3>Host: {session.creator.username}</h3>
           <h5>
             <i className="fab fa-discord"></i> {session.creator.discord_tag}
@@ -137,19 +140,19 @@ return (
           {/*sessionPlayers.length === 0 ? (<div className="players"><p>Session is empty</p></div>) : <></>*/}
         <span>
           Players: {sessionPlayers.length}/{session.max_players}
-        </span>
-          <span>Mic Required: {session.mic_required ? "Yes" : "No"}</span>
-          <span>Playstyle: {session.competitive ? "Competitive" : "Casual"} </span>
-          <span>Region: {session.region}</span>
-          <span>Platform: {session.platform}</span>
-        </div>  
-        {sessionPlayers.length === 0 ? (
-            <div className="session-empty">Session is empty</div>
-          ) : (
-            <div className="players-container">
-              {playerUsernames}
-          </div>        
-          )}
+          </span>
+            <span>Mic Required: {session.mic_required ? "Yes" : "No"}</span>
+            <span>Playstyle: {session.competitive ? "Competitive" : "Casual"} </span>
+            <span>Region: {session.region}</span>
+            <span>Platform: {session.platform}</span>
+          </div>  
+          {sessionPlayers.length === 0 ? (
+              <div className="session-empty">Session is empty</div>
+            ) : (
+              <div className="players-container">
+                {playerUsernames}
+              </div>        
+            )}
       </div>
       <footer>
         <span>{formattedDate}</span>
@@ -166,4 +169,5 @@ return (
     </div>
   );
 }
+
 export default SessionListItem;
