@@ -139,7 +139,7 @@ return (
           Players: {sessionPlayers.length}/{session.max_players}
         </span>
           <span>Mic Required: {session.mic_required ? "Yes" : "No"}</span>
-          <span>Playstyle: {session.competitve ? "Competitive" : "Casual"} </span>
+          <span>Playstyle: {session.competitive ? "Competitive" : "Casual"} </span>
           <span>Region: {session.region}</span>
           <span>Platform: {session.platform}</span>
         </div>  
