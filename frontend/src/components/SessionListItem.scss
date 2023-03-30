@@ -31,8 +31,8 @@
   h2 {
   font-size: 2.5rem;
   margin-bottom: 0.5em;
-    width: 40%;
-    font-family: 'Roboto Mono', monospace;
+  width: 90%;
+  font-family: 'Roboto Mono', monospace;
   }
   
   .fa-discord {
@@ -68,6 +68,13 @@
     pointer-events: none;
     transition: opacity 0.2s ease-in-out;
   }
+
+  .session-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
   
   button {
     padding: 1rem 2rem;
@@ -150,7 +157,7 @@ margin-bottom: 1em;
 
 .details {
 display: flex;
-flex-direction: column;
+flex-direction: row;
 justify-content: space-between;
 align-items: flex-start;
 width: 100%;
@@ -169,4 +176,11 @@ ul {
   padding: 0;
 }
 }
+
+.player-list-table td {
+  padding: 0 0.5em;
+}
+
+
+
 }

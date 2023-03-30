@@ -6,5 +6,5 @@ VALUES (1, 1, 'NA', 'Valorant Ranked', 'Looking for players to grind Valorant Ra
 (3, 3, 'NA', 'League of Legends Flex', 'Creating a team for LoL Flex', 5, 2, TRUE, TRUE, 'PC'),
 (4, 4, 'NA', 'Overwatch Comp', 'Looking for players to play Overwatch Comp with', 6, 4, TRUE, TRUE, 'PlayStation'),
 (5, 5, 'EU', 'Apex Legends Ranked', 'Need a full team for Apex Legends Ranked', 3, 2, TRUE, TRUE, 'PC'),
-(6, 6, 'NA', 'Minecraft Casual Survival', 'Looking for players to play some Minecraft Survival together', 10, 5, FALSE, FALSE,  'PC'),
-(12, 6, 'EU', 'Minecraft Competitive Bed wars', 'Lets win some bed wars on hipixel', 3, 2, TRUE, TRUE, 'PC');
+(12, 6, 'EU', 'Minecraft Competitive Bed wars', 'Lets win some bed wars on hipixel', 3, 2, TRUE, TRUE, 'PC'),
+(11, 2, 'NA', 'Fornite Arena', 'Looking to bag some dubs', 2, 2, TRUE, TRUE, 'Xbox');

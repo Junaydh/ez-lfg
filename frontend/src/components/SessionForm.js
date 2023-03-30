@@ -23,7 +23,7 @@ const SessionForm = ({ setShowForm }) => {
       max_players: 2,
       title: '',
       description: '',
-      platform: 'PC',
+      platform: 'Any Platform',
       region: 'Global',
       competitive: true 
     });
@@ -77,6 +77,16 @@ const SessionForm = ({ setShowForm }) => {
                 <option value="EUW">EUW</option>
                 <option value="SEA">SEA</option>
                 <option value="LAN">LAN</option>
+              </select>
+            </label>
+            <label>
+              Platform:
+              <br />
+              <select name="platform" value={preferenceDetails.platform} onChange={handleInputChange}>
+                <option value="PC">PC</option>
+                <option value="PlayStation">PlayStation</option>
+                <option value="Xbox">Xbox</option>
+                <option value="Nintendo Switch">Nintendo Switch</option>
               </select>
             </label>
             <label>
