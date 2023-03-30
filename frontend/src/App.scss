@@ -89,8 +89,9 @@
   padding: 1em 0;
 }
 .app-content-wrapper {
-  display: absolute;
+  display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .app-container {
@@ -104,3 +105,4 @@
   width: 60%;
   display: inline-block;
 }
+
