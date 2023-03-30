@@ -4,7 +4,6 @@
   max-width: 80%;
   justify-content: center;
   align-items: center;
-  border: 2px solid #333;
   background-color: #f1f1f1; /* Add background color */
   padding: 10px;
   box-sizing: border-box;
@@ -15,17 +14,14 @@
     margin-right: 10px; /* Add margin-right to space search bar and games */
     max-height: 100%;
     box-sizing: border-box;
-    max-width: 200px; /* Limit the width of the search bar */
   }
 }
 
 .games-container {
   display: flex;
+  flex-direction: column;
   flex-wrap: nowrap;
-  overflow-x: auto;
   padding: 10px;
-  box-sizing: border-box;
-  max-height: calc(120px - 2 * 10px); /* Calculate max-height of games container based on padding and border of parent container */
 
   &::-webkit-scrollbar {
     height: 10px;
@@ -42,19 +38,20 @@
 
   /* Add styles for each Game component */
   .game-container {
-    display: flex;
+    display: inline-block;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1.5px solid #333;
+    border: 1px solid #b0b0b0;
     background-color: #fff;
-    margin-right: 10px; /* Add margin-right to space games */
     height: 70px; /* Set fixed height */
+    width: 100%;
   }
 
   .game-logo {
     height: 40px;
     margin-bottom: 5px;
+    padding-right: 5px;
   }
 
   .game-name {

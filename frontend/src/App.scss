@@ -40,16 +40,19 @@
 }
 
 .games-list {
-  display: flex;
+  display: inline-block;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 20px;
   margin-top: 20px;
+  width: 30%;
 }
 
 .session-form-button {
   background-color: #61dafb;
+  padding: 20px;
+  width: 100%;
   color: white;
   font-size: 1rem;
   padding: 0.5rem 1rem;
@@ -84,4 +87,20 @@
   justify-content: center;
   align-items: center;
   padding: 1em 0;
+}
+.app-content-wrapper {
+  display: absolute;
+  justify-content: center;
+}
+
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 800px;
+}
+
+.sessions-list{
+  width: 60%;
+  display: inline-block;
 }
