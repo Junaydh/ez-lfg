@@ -23,8 +23,8 @@ const SessionForm = ({ setShowForm }) => {
       max_players: 2,
       title: '',
       description: '',
-      platform: 'Any Platform',
-      region: 'Global',
+      platform: 'PC',
+      region: 'NA',
       competitive: true 
     });
 
